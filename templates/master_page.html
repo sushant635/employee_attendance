@@ -1,0 +1,1541 @@
+{% extends "base.html" %}
+{% block title %}Master Page{% endblock title  %}
+{% block content_css %}
+<style>
+
+ .topnav {
+  overflow: hidden;
+  /* background-image: linear-gradient(#68A000, #3E5622); */
+  background-image: linear-gradient(180deg,#0575e6 20%, #021b79);
+  /* background: -webkit-gradient(linear, center top, center bottom, color-stop(0%,#0575e6), color-stop(20%,#0575e6), color-stop(40%,#021b78), color-stop(90%,#021b78), color-stop(100%,#021b78)); */
+
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  width:100%;
+  height: 65px;
+}
+.modal-header{
+  background-image: linear-gradient(180deg,#0575e6 20%, #021b79) !important;
+  height: 65px !important;
+}
+.data{
+  margin-left: 100px !important;
+}
+/* .tabcontent1{
+    margin-top: 300px !important;
+} */
+
+.tabcontent1 {
+  display: none;
+  padding: 6px 12px;
+  border-top: none;
+}
+.select:not(:-internal-list-box) {
+    background-color: #021b79 !important;
+    overflow: visible !important;
+
+}
+select option { 
+  background-color: #f0f2fa;
+  color: black;
+}
+
+select {
+
+/* styling */
+/* background-color: linear-gradient(180deg,#0575e6 20%, #021b79) !important; */
+/* border: thin solid blue; */
+border-radius: 6px;
+display: inline-block;
+font: inherit;
+line-height: 1.5em;
+padding: 0.5em 3.5em 0.5em 1em;
+
+/* reset */
+
+margin: 0;      
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+-webkit-appearance: none;
+-moz-appearance: none;
+}
+select.round {
+  /* color: blue ; */
+  background-color: #021b79 ;
+  /* background-color: linear-gradient(180deg,#0575e6 20%, #021b79) !important; */
+  /* background: linear-gradient(180deg,#0575e6 20%, #021b79) ; */
+  /* background: -webkit-linear-gradient(left, black 50%, white 50%) !important; */
+
+  color: white;
+  background-image:
+    linear-gradient(45deg, transparent 50%, white 50%),
+    linear-gradient(135deg, white 50%, transparent 50%),
+    radial-gradient(#0575e6 70%, transparent 72%);
+  background-position:
+    calc(100% - 20px) calc(1em + 2px),
+    calc(100% - 15px) calc(1em + 2px),
+    calc(100% - .5em) .5em;
+  background-size:
+    5px 5px,
+    5px 5px,
+    1.5em 1.5em;
+  background-repeat: no-repeat;
+}
+
+select.round:focus {
+  background-image:
+    linear-gradient(45deg, white 50%, transparent 50%),
+    linear-gradient(135deg, transparent 50%, white 50%),
+    radial-gradient(#0575e6 70%, transparent 72%);
+  background-position:
+    calc(100% - 15px) 1em,
+    calc(100% - 20px) 1em,
+    calc(100% - .5em) .5em;
+  background-size:
+    5px 5px,
+    5px 5px,
+    1.5em 1.5em;
+  background-repeat: no-repeat;
+  /* border-color: green; */
+  outline: 0;
+}
+.container1 {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.container1 img {
+  width: 100%;
+  height: auto;
+}
+.form-control{
+  background:#f0f2fa !important;
+  border: none !important;
+}
+
+.container1 .btn1 {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #555;
+  color: white;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.container1 .btn1:hover {
+  background-color: black;
+}
+.left{
+  /* margin-left:125px !important; */
+  /* padding: left 500px !important; */
+  padding-left: 290px !important;
+}
+.top-margin{
+  margin-top: 80px !important;
+}
+.scrollable {
+    height: 1000px; 
+    overflow-y: auto;
+    margin-top: 20px;
+}
+.modal-backdrop.in {
+	opacity: 0.9 !important;
+}
+.modal-backdrop.show {
+    opacity: 0.7;
+}
+.site_data{
+  margin-left:450px !important;
+
+}
+.site_location{
+  margin-left:250px !important;
+}
+.centered {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.modal-content{
+  border-radius:12px !important;
+}
+.modal-header{
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
+}
+
+</style>
+{% endblock content_css %}
+{% block user_name %}
+{{emp_name.name}}
+{% endblock user_name %}
+{% block user_image %}
+<img class="round" src="data:;base64,{{ emp_name.image }}" alt="user" style="height: 40px; width: 40px; border-radius: 50%;"/>
+{% endblock user_image %}
+
+{% block content %}
+<div class='container-fluid'>
+    <div class='row'>
+        <div class='col-lg-3 mt-4 ms-5'>
+            <h3>Masters</h3>
+        </div>
+        <div class='col-lg-5 mt-4 left'>
+              <select class="round " id="masters">
+                  <option value="1" class="tablinks" data-toggle='Holiday'>Holiday</option>
+                  <option value="2" class="tablinks" data-toggle='Department'>Department</a></option>
+                  <option value="3" class="tablinks" data-toggle='Shift'>Shift</option>
+                  <option value="5" class="tablinks" data-toggle='State'>State</option>
+                  <option value="6" class="tablinks" data-toggle='Designation'>Designation</option>
+                  <option value="7" class="tablinks"  data-toggle='Cost_Center'>Cost Center</option>
+                  <option value="8" class="tablinks" data-toggle='Site' >Site</option>
+                  <option value="9" class="tablinks" data-toggle='Site_Location'>Site Location</option>
+              </select>
+        </div>
+        <div class='col-lg-1 mt-4 ms-5'>
+            <input type='button' class='btn' style="background-color: #021b79; color:#ffffff; width:100px;" id="holidays_btn" value='Create'/>
+            <input type='button' class='btn' style="background-color: #021b79; color:#ffffff; display:none; width:100px" id="Department_btn" value='Create'/>
+            <input type='button' class='btn' style="background-color: #021b79; color:#ffffff; display:none; width:100px" id="shift_btn" value='Create'/>
+            <input type='button' class='btn' style="background-color: #021b79; color:#ffffff; display:none; width:100px" id="state_btn" value='Create'/>
+            <input type='button' class='btn' style="background-color: #021b79; color:#ffffff; display:none; width:100px" id="cost_btn" value='Create'/>
+            <input type='button' class='btn' style="background-color: #021b79; color:#ffffff; display:none; width:100px" id="site_btn" value='Create'/>
+            <input type='button' class='btn' style="background-color: #021b79; color:#ffffff; display:none; width:100px" id="site_location_btn" value='Create'/>
+            <input type='button' class='btn' style="background-color: #021b79; color:#ffffff; display:none; width:100px" id="designation_btn" value='Create'/>
+
+        </div>
+        <div class='col-lg-2 mt-4 '>
+        <a href="/static/samplecsvfile/holidays_upload.csv" download  class='btn btn-default' style="color:black ;background-color:#ffffff" id='holidays_csvsample'>Download Sample File</a>
+        <a href="/static/samplecsvfile/Department.csv" download  class='btn btn-default' style="color:black ;background-color:#ffffff ;display:none;" id='Department_csvsample'>Download Sample File</a>
+        <a href="/static/samplecsvfile/shift.csv" download  class='btn btn-default' style="color:black ;background-color:#ffffff;display:none;" id='shift_csvsample'>Download Sample File</a>
+        <a href="/static/samplecsvfile/state.csv" download  class='btn btn-default' style="color:black ;background-color:#ffffff;display:none;" id='state_csvsample'>Download Sample File</a>
+        <a href="/static/samplecsvfile/designation.csv" download  class='btn btn-default' style="color:black ;background-color:#ffffff;display:none;" id='designation_csvsample'>Download Sample File</a>
+        <a href="/static/samplecsvfile/cost.csv" download  class='btn btn-default' style="color:black ;background-color:#ffffff;display:none;" id='cost_csvsample'>Download Sample File</a>
+        <a href="/static/samplecsvfile/site.csv" download  class='btn btn-default' style="color:black ;background-color:#ffffff;display:none;" id='site_csvsample'>Download Sample File</a>
+
+            <!-- <a href="/static/samplecsvfile/holidays_upload.csv" download  class='btn btn-primary'>Download Sample File</a> -->
+            <!-- <input type='button' class='btn btn-default' style="color:black ;background-color:#ffffff" value='Download Sample File'/> -->
+        </div>
+    </div>
+</div>
+<div id='Holiday' class='top-margin'>
+  <!-- <input type='button' class='btn' style="background-color: #021b79; color:#ffffff" value='Create'/> -->
+  <div class='container-fluid	'>
+    <div class="container1 container ">
+      <form action="/upload_holiday_csv/" method="POST" enctype="multipart/form-data" id='upload_holidaycsv'> 
+        {% csrf_token %}
+          <img src="/static/img/drag & drop file iccon.png" alt="Snow" style="width:100%">
+          <h5 class="centered" style="color:gray">Drag & Drop file here </h5>
+          <button class="btn1" style="background-color:#0575e6" ><input class="btn1" type='file' value='Browse File' name='holiday_csv' id="holiday_csv"  style="background-color: #0575e6;opacity: 0;">Browse File</button>
+      </form>
+    </div>
+        <div class="container top-margin justify-content-center">
+          <div class="card card-item">
+              <div class='topnav p-4'>
+                  <div class='row'>
+                      <div class='col-lg-4'>
+                          <labe class='text-center text-light ms-4'>Holidays</labe>
+                      </div>
+                      <div class='col-lg-3'>
+                          <labe class='text-center text-light data'>Date</labe>
+                      </div>
+                      <div class='col-lg-3'>
+                          <labe class='text-center text-light data'>Days</labe>
+                      </div>
+                      <div class='col-lg-2'>
+                          <labe class='text-center text-light data'>Active</labe>
+                      </div>
+                  </div>
+              </div>
+              <!-- </table> -->
+              <div class='p-4'>
+                  {% for i in holidays %}
+                  <div class='row border-bottom mt-2' id="{{i.id}}">
+                      <div class='col-lg-4'>
+                          <labe class='text-center ms-4'>{{i.holiday_name}}</labe>
+                      </div>
+                      <div class='col-lg-3'>
+                          <labe class='text-center data'>{{i.holiday_date}}</labe>
+                      </div>
+                      <div class='col-lg-3'>
+                          <labe class='text-center data'>{{i.days}}</labe>
+                      </div>
+                      <div class='col-lg-2'>
+                          <input type="checkbox" class='data' {{i.active}} disabled>
+                      </div>
+                  </div>
+                  {% endfor %}
+              </div>
+          </div>
+    </div>
+    <div class="modal  fade" id="holidays_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+              <!-- <div class='row'> -->
+                <div class='col-lg-9'>
+                  <h4 class=' p-2 text-light'>Create Holidays</h4>
+                </div>
+                <div class='col-lg-1'>
+                  <h5 class='ps-4 p-3 text-light ' id='saveholidays_btn' style="cursor: alias;">Save</h5>
+                </div>
+                <div class='col-lg-2'>
+                  <h5 class='ps-4 p-3 text-light' style="cursor: alias;" data-bs-dismiss="modal">Cancel</h5>
+                </div>
+              <!-- </div> -->
+              <!-- <h4 class='ps-4 p-2 text-light' >Work Info</h4> -->
+            
+            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+          </div>
+          <div class="modal-body p-4">
+            <form method='POST' action='/save_holidays/' id='saveholidaysforms'>
+              {% csrf_token %} 
+              <div class='row mt-4'>
+                <div class='col-lg-6'>
+                  <div class='row'>
+                    <div class='col-lg-5'>
+                      <label class="form-label" for="holidays_name">
+                        Holidays Name
+                      </label>
+                    </div>
+                    <div class='col-lg-7'>
+                      <input type='text' class='form-control' name='holidays_name' id='holidays_name'>
+                    </div>
+                  </div>
+                </div>
+                <div class='col-lg-6'>
+                  <div class='row ms-2'>
+                    <div class='col-lg-4 ms-1'>
+                      <label class="form-label" for="holidays_date">
+                        Date
+                      </label>
+                    </div>
+                    <div class='col-lg-7'>
+                      <input type='date' class='form-control' name='holidays_date' id='holidays_date'>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='row mt-5'>
+                <div class='col-lg-6'>
+                  <div class='row'>
+                    <div class='col-lg-5'>
+                      <label class="form-label" for="holidays_name">
+                        Active
+                      </label>
+                    </div>
+                    <div class='col-lg-5'>
+                      <input type='checkbox' class='form-check-input' name='holidays_active' id='holidays_active'>
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class='col-lg-6'>
+                  <div class='row'>
+                    <div class='col-lg-5'>
+                      <label class="form-label" for="holidays_date">
+                        Date
+                      </label>
+                    </div>
+                    <div class='col-lg-5'>
+                      <input type='date' class='form-control' name='holidays_date' id='holidays_date'>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      {% for message in messages %}
+    <script>
+      window.onload = function(){
+        alert('{{message}}')
+      }
+    </script>
+    {% endfor %}
+    </div>
+  </div>
+  
+</div>
+
+<div id="Department" style="display: none;" class='top-margin'>
+  <div class='container-fluid	'>
+    <div class="container1 container mt-5">
+      <form action="/upload_department_csv/" method="POST" enctype="multipart/form-data" id='upload_departmentcsv'> 
+        {% csrf_token %}
+          <img src="/static/img/drag & drop file iccon.png" alt="Snow" style="width:100%">
+          <h5 class="centered" style="color:gray">Drag & Drop file here </h5>
+          <button class="btn1" style="background-color:#0575e6" ><input class="btn1" type='file' value='Browse File' name='department_csv' id="department_csv"  style="background-color: #0575e6;opacity: 0;">Browse File</button>
+      </form>
+    </div>
+        <div class="container mt-5 justify-content-center">
+          <div class="card card-item">
+              <div class='topnav p-4'>
+                  <div class='row'>
+                      <div class='col-lg-4'>
+                          <labe class='text-center text-light ms-4'>Display Name</labe>
+                      </div>
+                      <div class='col-lg-3'>
+                          <labe class='text-center text-light data'>Manager</labe>
+                      </div>
+                      <div class='col-lg-3'>
+                          <labe class='text-center text-light data'>Parent Name</labe>
+                      </div>
+                      <div class='col-lg-2'>
+                          <labe class='text-center text-light data'>Active</labe>
+                      </div>
+                  </div>
+              </div>
+              <!-- </table> -->
+              <div class='p-4'>
+                  {% for i in department %}
+                  <div class='row border-bottom ' id="{{i.id}}">
+                      <div class='col-lg-4'>
+                          <labe class='text-center ms-4'>{{i.display_name}}</labe>
+                      </div>
+                      <div class='col-lg-3'>
+                          <labe class='text-center data'>{{i.manager_id}}</labe>
+                      </div>
+                      <div class='col-lg-3'>
+                          <labe class='text-center data'>{{i.parent_id}}</labe>
+                      </div>
+                      <div class='col-lg-2'>
+                          <input type="checkbox" class='data' {{i.active}} disabled>
+                      </div>
+                  </div>
+                  {% endfor %}
+              </div>
+          </div>
+    </div>
+    <div class="modal  fade" id="Department_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+              <!-- <div class='row'> -->
+                <div class='col-lg-9'>
+                  <h4 class='ps-4 p-2 text-light'>Create Department</h4>
+                </div>
+                <div class='col-lg-1'>
+                  <h5 class='ps-4 p-3 text-light ' id='savedepartment_btn' style="cursor: alias;">Save</h5>
+                </div>
+                <div class='col-lg-2'>
+                  <h5 class='ps-4 p-3 text-light' style="cursor: alias;" data-bs-dismiss="modal">Cancel</h5>
+                </div>
+              <!-- </div> -->
+              <!-- <h4 class='ps-4 p-2 text-light' >Work Info</h4> -->
+            
+            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+          </div>
+          <div class="modal-body p-4">
+            <form method='POST' action='/save_department/' id='savedepartmentforms'>
+              {% csrf_token %} 
+              <div class='row mt-4'>
+                <div class='col-lg-6'>
+                  <div class='row'>
+                    <div class='col-lg-5'>
+                      <label class="form-label" for="Department_name">
+                        Department Name
+                      </label>
+                    </div>
+                    <div class='col-lg-7'>
+                      <input type='text' class='form-control' name='Department_name' id='Department_name'>
+                    </div>
+                  </div>
+                </div>
+                <div class='col-lg-6'>
+                  <div class='row ms-2'>
+                    <div class='col-lg-4'>
+                      <label class="form-label" for="holidays_date">
+                        Active
+                      </label>
+                    </div>
+                    <div class='col-lg-5'>
+                      <input type='checkbox' class='form-check-input' name='Department_active' id='Department_active'>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      {% for message in messages %}
+    <script>
+      window.onload = function(){
+        alert('{{message}}')
+      }
+    </script>
+    {% endfor %}
+    </div>
+</div>
+
+<div id="Shift" style="display: none;" class='top-margin'>
+  <div class='container-fluid	'>
+    <div class="container1 container mt-5">
+      <form action="/upload_shift_csv/" method="POST" enctype="multipart/form-data" id='upload_shiftcsv'> 
+        {% csrf_token %}
+          <img src="/static/img/drag & drop file iccon.png" alt="Snow" style="width:100%">
+          <h5 class="centered" style="color:gray">Drag & Drop file here </h5>
+          <button class="btn1" style="background-color:#0575e6" ><input class="btn1" type='file' value='Browse File' name='shift_csv' id="shift_csv"  style="background-color: #0575e6;opacity: 0;">Browse File</button>
+      </form>
+    </div>
+    <div class='scrollable'>
+      <div class="container mt-5 justify-content-center">
+        <div class="card card-item">
+            <div class='topnav p-4'>
+                <div class='row'>
+                    <div class='col-lg-4'>
+                        <labe class='text-center text-light ms-4'>Shift Grade</labe>
+                    </div>
+                    <div class='col-lg-4'>
+                        <labe class='text-center text-light data'>In Shift Time</labe>
+                    </div>
+                    <div class='col-lg-4'>
+                        <labe class='text-center text-light data'>Out Shift Time</labe>
+                    </div>
+                    
+                </div>
+            </div>
+            <!-- </table> -->
+            <div class='p-4'>
+                {% for i in shift%}
+                <div class='row border-bottom mt-2' id="{{i.id}}">
+                    <div class='col-lg-4'>
+                        <labe class='text-center ms-4'>{{i.name}}</labe>
+                    </div>
+                    <div class='col-lg-4'>
+                        <labe class='text-center data'>{{i.in_shift_time}}</labe>
+                    </div>
+                    <div class='col-lg-4'>
+                        <labe class='text-center data'>{{i.out_shift_time}}</labe>
+                    </div>
+                </div>
+                {% endfor %}
+            <saveshift_btn/div>
+        </div>
+      </div>
+    </div>
+        
+    <div class="modal  fade" id="Shift_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+              <!-- <div class='row'> -->
+                <div class='col-lg-9'>
+                  <h4 class=' p-2 text-light'>Create Shift</h4>
+                </div>
+                <div class='col-lg-1'>
+                  <h5 class='ps-4 p-3 text-light ' id='saveshift_btn' style="cursor: alias;">Save</h5>
+                </div>
+                <div class='col-lg-2'>
+                  <h5 class='ps-4 p-3 text-light' style="cursor: alias;" data-bs-dismiss="modal">Cancel</h5>
+                </div>
+              <!-- </div> -->
+              <!-- <h4 class='ps-4 p-2 text-light' >Work Info</h4> -->
+            
+            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+          </div>
+          <div class="modal-body p-4">
+            <form method='POST' action='/save_shift/' id='shiftform'>
+              {% csrf_token %} 
+              <div class='row '>
+                <div class='col-lg-6'>
+                  <div class='row'>
+                    <div class='col-lg-5'>
+                      <label class="form-label" for="shift_in">
+                        In Time
+                      </label>
+                    </div>
+                    <div class='col-lg-5'>
+                      <input type='text' class='form-control' name='shift_in' id='shift_in'>
+                    </div>
+                  </div>
+                </div>
+                <div class='col-lg-6'>
+                  <div class='row ms-2'>
+                    <div class='col-lg-4 ms-1'>
+                      <label class="form-label" for="shift_out">
+                        Out Time
+                      </label>
+                    </div>
+                    <div class='col-lg-5'>
+                      <input type='text' class='form-control' name='shift_out' id='shift_out'>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='row mt-4'>
+                <div class='col-lg-6'>
+                  <div class='row '>
+                    <div class='col-lg-5'>
+                      <label class="form-label" for="holidays_name">
+                        Shift Name
+                      </label>
+                    </div>
+                    <div class='col-lg-5'>
+                      <input type='text' class='form-control' name='shift_name' id='shift_name'>
+                    </div>
+                  </div>
+                </div>
+                 <!-- <div class='col-lg-6'>
+                  <div class='row'>
+                    <div class='col-lg-5'>
+                      <label class="form-label" for="holidays_date">
+                        Date
+                      </label>
+                    </div>
+                    <div class='col-lg-5'>
+                      <input type='date' class='form-control' name='holidays_date' id='holidays_date'>
+                    </div>
+                  </div>
+                </div> -->
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      {% for message in messages %}
+    <script>
+      window.onload = function(){
+        alert('{{message}}')
+      }
+    </script>
+    {% endfor %}
+  </div>
+</div>
+  </div>
+</div>
+
+<div id="designation" style="display: none;" class='top-margin'>
+  <div class='container-fluid	'>
+    <div class="container1 container mt-5">
+      <form action="/upload_designation_csv/" method="POST" enctype="multipart/form-data" id='upload_designationcsv'> 
+        {% csrf_token %}
+          <img src="/static/img/drag & drop file iccon.png" alt="Snow" style="width:100%">
+          <h5 class="centered" style="color:gray">Drag & Drop file here </h5>
+          <button class="btn1" style="background-color:#0575e6" ><input class="btn1" type='file' value='Browse File' name='designation_csv' id="designation_csv"  style="background-color: #0575e6;opacity: 0;">Browse File</button>
+      </form>
+    </div>
+    <div class='scrollable'>
+      <div class="container mt-5 justify-content-center">
+        <div class="card card-item">
+            <div class='topnav p-4'>
+                <div class='row'>
+                    <div class='col-lg-4'>
+                        <labe class='text-center text-light ms-4'>Designation</labe>
+                    </div>
+                    <!-- <div class='col-lg-4'>
+                        <labe class='text-center text-light data'>Active</labe>
+                    </div>
+                    <div class='col-lg-4'>
+                        <labe class='text-center text-light data'>Union Territory</labe>
+                    </div> -->
+                    
+                </div>
+            </div>
+            <!-- </table> -->
+            <div class='p-4'>
+                {% for i in job %}
+                <div class='row border-bottom mt-2' id="{{i.id}}">
+                    <div class='col-lg-4'>
+                        <labe class='text-center ms-4'>{{i.name}}</labe>
+                    </div>
+                    <!-- <div class='col-lg-4'>
+                      <input type="checkbox" class='data' {{i.active}} disabled>
+                    </div>
+                    <div class='col-lg-4'>
+                      <input type="checkbox" class='data' {{i.union_territory}} disabled>
+                    </div> -->
+                </div>
+                {% endfor %}
+            <saveshift_btn/div>
+        </div>
+      </div>
+    </div>
+        
+    <div class="modal  fade" id="designation_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+              <!-- <div class='row'> -->
+                <div class='col-lg-9'>
+                  <h4 class='ps-4 p-2 text-light'>Create Designation</h4>
+                </div>
+                <div class='col-lg-1'>
+                  <h5 class='ps-4 p-3 text-light ' id='savedesignation_btn' style="cursor: alias;">Save</h5>
+                </div>
+                <div class='col-lg-2'>
+                  <h5 class='ps-4 p-3 text-light' style="cursor: alias;" data-bs-dismiss="modal">Cancel</h5>
+                </div>
+              <!-- </div> -->
+              <!-- <h4 class='ps-4 p-2 text-light' >Work Info</h4> -->
+            
+            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+          </div>
+          <div class="modal-body">
+            <form method='POST' action='/save_designation/' id='designationform'>
+              {% csrf_token %} 
+              <div class='row mt-4'>
+                <div class='col-lg-6'>
+                  <div class='row'>
+                    <div class='col-lg-5'>
+                      <label class="form-label" for="designation_name">
+                        Designation Name
+                      </label>
+                    </div>
+                    <div class='col-lg-7'>
+                      <input type='text' class='form-control' name='designation_name' id='designation_name'>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      {% for message in messages %}
+    <script>
+      window.onload = function(){
+        alert('{{message}}')
+      }
+    </script>
+    {% endfor %}
+  </div>
+</div>
+  </div>
+</div>
+
+<div id="state" style="display: none;" class='top-margin'>
+  <div class='container-fluid	'>
+    <div class="container1 container mt-5">
+      <form action="/upload_state_csv/" method="POST" enctype="multipart/form-data" id='upload_statecsv'> 
+        {% csrf_token %}
+          <img src="/static/img/drag & drop file iccon.png" alt="Snow" style="width:100%">
+          <h5 class="centered" style="color:gray">Drag & Drop file here </h5>
+          <button class="btn1" style="background-color:#0575e6" ><input class="btn1" type='file' value='Browse File' name='state_csv' id="state_csv"  style="background-color: #0575e6;opacity: 0;">Browse File</button>
+      </form>
+    </div>
+    <div class='scrollable'>
+      <div class="container mt-5 justify-content-center">
+        <div class="card card-item">
+            <div class='topnav p-4'>
+                <div class='row'>
+                    <div class='col-lg-4'>
+                        <labe class='text-center text-light ms-4'>State Name</labe>
+                    </div>
+                    <div class='col-lg-4'>
+                        <labe class='text-center text-light data'>Active</labe>
+                    </div>
+                    <div class='col-lg-4'>
+                        <labe class='text-center text-light data'>Union Territory</labe>
+                    </div>
+                    
+                </div>
+            </div>
+            <!-- </table> -->
+            <div class='p-4'>
+                {% for i in state %}
+                <div class='row border-bottom mt-2' id="{{i.id}}">
+                    <div class='col-lg-4'>
+                        <labe class='text-center ms-4'>{{i.name}}</labe>
+                    </div>
+                    <div class='col-lg-4'>
+                      <input type="checkbox" class='data' {{i.active}} disabled>
+                    </div>
+                    <div class='col-lg-4'>
+                      <input type="checkbox" class='data' {{i.union_territory}} disabled>
+                    </div>
+                </div>
+                {% endfor %}
+            <saveshift_btn/div>
+        </div>
+      </div>
+    </div>
+        
+    <div class="modal  fade" id="state_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+              <!-- <div class='row'> -->
+                <div class='col-lg-9'>
+                  <h4 class='ps-4 p-2 text-light'>Create State</h4>
+                </div>
+                <div class='col-lg-1'>
+                  <h5 class='ps-4 p-3 text-light ' id='savestate_btn' style="cursor: alias;">Save</h5>
+                </div>
+                <div class='col-lg-2'>
+                  <h5 class='ps-4 p-3 text-light' style="cursor: alias;" data-bs-dismiss="modal">Cancel</h5>
+                </div>
+              <!-- </div> -->
+              <!-- <h4 class='ps-4 p-2 text-light' >Work Info</h4> -->
+            
+            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+          </div>
+          <div class="modal-body p-4">
+            <form method='POST' action='/save_state/' id='stateform'>
+              {% csrf_token %} 
+              <div class='row '>
+                <div class='col-lg-6'>
+                  <div class='row'>
+                    <div class='col-lg-5'>
+                      <label class="form-label" for="state_name">
+                        State Name
+                      </label>
+                    </div>
+                    <div class='col-lg-7'>
+                      <input type='text' class='form-control' name='state_name' id='state_name'>
+                    </div>
+                  </div>
+                </div>
+                <div class='col-lg-6'>
+                  <div class='row ms-2'>
+                    <div class='col-lg-4 ms-1'>
+                      <label class="form-label" for="state_active">
+                        Active
+                      </label>
+                    </div>
+                    <div class='col-lg-7'>
+                      <input type='checkbox' class='form-check-input' name='state_active' id='state_active'>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='row mt-3'>
+                <div class='col-lg-6'>
+                  <div class='row'>
+                    <div class='col-lg-5'>
+                      <label class="form-label" for="union_territory">
+                        Union Territory
+                      </label>
+                    </div>
+                    <div class='col-lg-7'>
+                      <input type='checkbox' class='form-check-input' name='union_territory' id='union_territory'>
+                    </div>
+                  </div>
+                </div>
+                 <!-- <div class='col-lg-6'>
+                  <div class='row'>
+                    <div class='col-lg-5'>
+                      <label class="form-label" for="holidays_date">
+                        Date
+                      </label>
+                    </div>
+                    <div class='col-lg-5'>
+                      <input type='date' class='form-control' name='holidays_date' id='holidays_date'>
+                    </div>
+                  </div>
+                </div> -->
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      {% for message in messages %}
+    <script>
+      window.onload = function(){
+        alert('{{message}}')
+      }
+    </script>
+    {% endfor %}
+  </div>
+</div>
+  </div>
+</div>
+
+<div id="cost" style="display: none;" class='top-margin'>
+  <div class='container-fluid	'>
+    <div class="container1 container mt-5">
+      <form action="/upload_cost_csv/" method="POST" enctype="multipart/form-data" id='upload_costcsv'> 
+        {% csrf_token %}
+          <img src="/static/img/drag & drop file iccon.png" alt="Snow" style="width:100%">
+          <h5 class="centered" style="color:gray">Drag & Drop file here </h5>
+          <button class="btn1" style="background-color:#0575e6" ><input class="btn1" type='file' value='Browse File' name='cost_csv' id="cost_csv"  style="background-color: #0575e6;opacity: 0;">Browse File</button>
+      </form>
+    </div>
+    <div class='scrollable'>
+      <div class="container mt-5 justify-content-center">
+        <div class="card card-item">
+            <div class='topnav p-4'>
+                <div class='row'>
+                    <div class='col-lg-4'>
+                        <labe class='text-center text-light ms-4'>Nominee</labe>
+                    </div>
+                    <!-- <div class='col-lg-4'>
+                        <labe class='text-center text-light data'>Active</labe>
+                    </div>
+                    <div class='col-lg-4'>
+                        <labe class='text-center text-light data'>Union Territory</labe>
+                    </div> -->
+                    
+                </div>
+            </div>
+            <!-- </table> -->
+            <div class='p-4'>
+                {% for i in const %}
+                <div class='row border-bottom mt-2' id="{{i.id}}">
+                    <div class='col-lg-4'>
+                        <labe class='text-center ms-4'>{{i.name}}</labe>
+                    </div>
+                    <!-- <div class='col-lg-4'>
+                      <input type="checkbox" class='data' {{i.active}} disabled>
+                    </div>
+                    <div class='col-lg-4'>
+                      <input type="checkbox" class='data' {{i.union_territory}} disabled>
+                    </div> -->
+                </div>
+                {% endfor %}
+            <saveshift_btn/div>
+        </div>
+      </div>
+    </div>
+        
+    <div class="modal  fade" id="cost_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+              <!-- <div class='row'> -->
+                <div class='col-lg-9'>
+                  <h4 class='ps-4 p-2 text-light'>Create Cost Center</h4>
+                </div>
+                <div class='col-lg-1'>
+                  <h5 class='ps-4 p-3 text-light ' id='savecost_btn' style="cursor: alias;">Save</h5>
+                </div>
+                <div class='col-lg-2'>
+                  <h5 class='ps-4 p-3 text-light' style="cursor: alias;" data-bs-dismiss="modal">Cancel</h5>
+                </div>
+              <!-- </div> -->
+              <!-- <h4 class='ps-4 p-2 text-light' >Work Info</h4> -->
+            
+            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+          </div>
+          <div class="modal-body">
+            <form method='POST' action='/save_cost/' id='costform'>
+              {% csrf_token %} 
+              <div class='row mt-4'>
+                <div class='col-lg-6'>
+                  <div class='row'>
+                    <div class='col-lg-5'>
+                      <label class="form-label" for="Nominee_name">
+                        Nominee
+                      </label>
+                    </div>
+                    <div class='col-lg-7'>
+                      <input type='text' class='form-control' name='Nominee_name' id='Nominee_name'>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      {% for message in messages %}
+    <script>
+      window.onload = function(){
+        alert('{{message}}')
+      }
+    </script>
+    {% endfor %}
+  </div>
+</div>
+  </div>
+</div>
+
+<div id="site" style="display: none;" class='top-margin'>
+  <div class='container-fluid	'>
+    <div class="container1 container mt-5">
+      <form action="/upload_site_csv/" method="POST" enctype="multipart/form-data" id='upload_sitecsv'> 
+        {% csrf_token %}
+          <img src="/static/img/drag & drop file iccon.png" alt="Snow" style="width:100%">
+          <h5 class="centered" style="color:gray">Drag & Drop file here </h5>
+          <button class="btn1" style="background-color:#0575e6" ><input class="btn1" type='file' value='Browse File' name='site_csv' id="site_csv"  style="background-color: #0575e6;opacity: 0;">Browse File</button>
+      </form>
+      
+    </div>
+    <div class='scrollable'>
+      <div class="container mt-5 justify-content-center">
+        <div class="card card-item">
+            <div class='topnav p-4'>
+                <div class='row'>
+                    <div class='col-lg-6'>
+                        <labe class='text-center text-light ms-4'>Site Name</labe>
+                    </div>
+                    <div class='col-lg-6'>
+                        <labe class='text-center text-light site_data' >Active</labe>
+                    </div>            
+                </div>
+            </div>
+            <!-- </table> -->
+            <div class='p-4'>
+                {% for i in site %}
+                <div class='row border-bottom mt-2' id="{{i.id}}">
+                    <div class='col-lg-6'>
+                        <labe class='text-center ms-4'>{{i.name}}</labe>
+                    </div>
+                    <div class='col-lg-6'>
+                      <input type="checkbox" class=' site_data' {{i.active}} disabled>
+                    </div>
+                </div>
+                {% endfor %}
+            <saveshift_btn/div>
+        </div>
+      </div>
+    </div>
+        
+    <div class="modal  fade" id="site_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+              <!-- <div class='row'> -->
+                <div class='col-lg-9'>
+                  <h4 class='ps-4 p-2 text-light'>Create Site</h4>
+                </div>
+                <div class='col-lg-1'>
+                  <h5 class='ps-4 p-3 text-light ' id='savesite_btn' style="cursor: alias;">Save</h5>
+                </div>
+                <div class='col-lg-2'>
+                  <h5 class='ps-4 p-3 text-light' style="cursor: alias;" data-bs-dismiss="modal">Cancel</h5>
+                </div>
+              <!-- </div> -->
+              <!-- <h4 class='ps-4 p-2 text-light' >Work Info</h4> -->
+            
+            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+          </div>
+          <div class="modal-body">
+            <form method='POST' action='/save_site/' id='siteform'>
+              {% csrf_token %} 
+              <div class='row mt-4'>
+                <div class='col-lg-6'>
+                  <div class='row'>
+                    <div class='col-lg-5'>
+                      <label class="form-label" for="site_name">
+                        Site Name
+                      </label>
+                    </div>
+                    <div class='col-lg-7'>
+                      <input type='text' class='form-control' name='site_name' id='site_name'>
+                    </div>
+                  </div>
+                </div>
+                <div class='col-lg-6'>
+                  <div class='row'>
+                    <div class='col-lg-5'>
+                      <label class="form-label" for="is_a_branch">
+                        Is a Branch
+                      </label>
+                    </div>
+                    <div class='col-lg-5'>
+                      <input type='checkbox' class='form-check-input' name='is_a_branch' id='is_a_branch'>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='row mt-4'>
+                <div class='col-lg-6'>
+                  <div class='row'>
+                    <div class='col-lg-5'>
+                      <label class="form-label" for="flexishift">
+                        Flexishift?
+                      </label>
+                    </div>
+                    <div class='col-lg-5'>
+                      <input type='checkbox' class='form-check-input' name='flexishift' id='flexishift'>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='row mt-4'>
+                <div class='col-lg-6'>
+                  <div class='row'>
+                    <div class='col-lg-5'>
+                      <label class="form-label" for="site_address">
+                        Site Address
+                      </label>
+                    </div>
+                    <div class='col-lg-7'>
+                      <input type='text' class='form-control' name='site_address' id='site_address'>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      {% for message in messages %}
+    <script>
+      window.onload = function(){
+        alert('{{message}}')
+      }
+    </script>
+    {% endfor %}
+  </div>
+</div>
+  </div>
+</div>
+
+<div id="site_location" style="display: none;" class='top-margin'>
+  <div class='container-fluid	'>
+    <div class="container1 container mt-5">
+      <i<form action="/upload_site_csv/" method="POST" enctype="multipart/form-data" id='upload_sitecsv'> 
+        {% csrf_token %}
+          <img src="/static/img/drag & drop file iccon.png" alt="Snow" style="width:100%">
+          <h5 class="centered" style="color:gray">Drag & Drop file here </h5>
+          <button class="btn1" style="background-color:#0575e6" ><input class="btn1" type='file' value='Browse File' name='site_csv' id="site_csv"  style="background-color: #0575e6;opacity: 0;">Browse File</button>
+      </form>
+    </div>
+    <div class='scrollable'>
+      <div class="container mt-5 justify-content-center">
+        <div class="card card-item">
+            <div class='topnav p-4'>
+                <div class='row'>
+                    <div class='col-lg-4 '>
+                        <labe class='text-center text-light ms-5'>Site Location</labe>
+                    </div>
+                    <div class='col-lg-4 '>
+                        <labe class='text-center text-light ms-5 data'>State</labe>
+                    </div>
+                    <div class='col-lg-4 '>
+                      <labe class='text-center text-light ms-5 site_location'>Active</labe>
+                  </div>            
+                </div>
+            </div>
+            <!-- </table> -->
+            <div class='p-4'>
+                {% for i in site_location %}
+                <div class='row border-bottom mt-2' id="{{i.id}}">
+                    <div class='col-lg-4 '>
+                        <labe class='text-center ms-5'>{{i.name}}</labe>
+                    </div>
+                    <div class='col-lg-4 '>
+                        <labe class='text-center ms-5 data' >{{i.state}}</labe>
+                    </div>
+                    <div class='col-lg-4'>
+                      <input type="checkbox" class='ms-5 site_location' {{i.active}} disabled>
+                    </div>
+                </div>
+                {% endfor %}
+            <saveshift_btn/div>
+        </div>
+      </div>
+    </div>
+        
+    <div class="modal  fade" id="site_location_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+              <!-- <div class='row'> -->
+                <div class='col-lg-9'>
+                  <h4 class='ps-4 p-2 text-light'>Create Site Location</h4>
+                </div>
+                <div class='col-lg-1'>
+                  <h5 class='ps-4 p-3 text-light ' id='savesitelocation_btn' style="cursor: alias;">Save</h5>
+                </div>
+                <div class='col-lg-2'>
+                  <h5 class='ps-4 p-3 text-light' style="cursor: alias;" data-bs-dismiss="modal">Cancel</h5>
+                </div>
+              <!-- </div> -->
+              <!-- <h4 class='ps-4 p-2 text-light' >Work Info</h4> -->
+            
+            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+          </div>
+          <div class="modal-body">
+            <form method='POST' action='/save_site_location/' id='sitelocationform'>
+              {% csrf_token %} 
+              <div class='row mt-4'>
+                <div class='col-lg-6'>
+                  <div class='row'>
+                    <div class='col-lg-5'>
+                      <label class="form-label" for="site_name">
+                        Site Location
+                      </label>
+                    </div>
+                    <div class='col-lg-7'>
+                      <input type='text' class='form-control' name='site_location_name' id='site_location_name'>
+                    </div>
+                  </div>
+                </div>
+                <div class='col-lg-6'>
+                  <div class='row'>
+                    <div class='col-lg-5'>
+                      <label class="form-label" for="is_a_branch">
+                        State
+                      </label>
+                    </div>
+                    <div class='col-lg-5'>
+                      <select name="state_id" id="state_id" class="form-select">
+                        <option > </option>
+                        {% for i in state %}
+                        <option value="{{i.id}}">{{i.name}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='row mt-4'>
+                <div class='col-lg-6'>
+                  <div class='row'>
+                    <div class='col-lg-5'>
+                      <label class="form-label" for="site_location_active">
+                        Active
+                      </label>
+                    </div>
+                    <div class='col-lg-5'>
+                      <input type='checkbox' class='form-check-input' name='site_location_active' id='site_location_active'>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      {% for message in messages %}
+    <script>
+      window.onload = function(){
+        alert('{{message}}')
+      }
+    </script>
+    {% endfor %}
+  </div>
+</div>
+  </div>
+</div>
+
+{% endblock content %}
+
+{% block content_js %}
+<script>
+ $(document).ready(function() {
+  $("#masters").change(function() {
+    setTabVisibility();
+    // alert('working')
+  });
+
+  $('#holidays_btn').click(function() {
+    $('#holidays_modal').modal('show');
+  })
+});
+
+const upload_holidaycsv = $('#upload_holidaycsv')
+$('#holiday_csv').change(function(){
+  upload_holidaycsv.submit();
+})
+
+$('#department_csv').change(function(){
+  $('#upload_departmentcsv').submit();
+})
+$('#shift_csv').change(function(){
+  $('#upload_shiftcsv').submit();
+})
+$('#state_csv').change(function(){
+  $('#upload_statecsv').submit();
+})
+$('#designation_csv').change(function(){
+  $('#upload_designationcsv').submit();
+})
+
+$('#designation_csv').change(function(){
+  $('#upload_designationcsv').submit();
+})
+
+
+$('#cost_csv').change(function(){
+  $('#upload_costcsv').submit();
+})
+$('#site_csv').change(function(){
+  $('#upload_sitecsv').submit();
+})
+
+
+
+
+$('#Department_btn').click(function(){
+  $('#Department_modal').modal('show')
+})
+$('#shift_btn').click(function(){
+  $('#Shift_modal').modal('show')
+})
+
+$('#state_btn').click(function(){
+  $('#state_modal').modal('show')
+})
+
+$('#cost_btn').click(function(){
+  $('#cost_modal').modal('show')
+})
+$('#site_btn').click(function(){
+  $('#site_modal').modal('show')
+})
+$('#site_location_btn').click(function(){
+  $('#site_location_modal').modal('show')
+})
+$('#designation_btn').click(function(){
+  $('#designation_modal').modal('show')
+})
+setTabVisibility();
+
+function setTabVisibility(){
+  var selectedVal = $("#masters").val();
+  var tabID = $("#masters").find(":selected").data('toggle');
+  // alert(tabID)
+  // alert(selectedVal)
+  if(tabID == "Holiday"){
+    // alert('working')
+    $('#holidays_btn').show()
+    $('#Department_btn').hide();
+    $('#Holiday').show();
+    $('#Department').hide();
+    $('#shift_btn').hide();
+    $('#Shift').hide();
+    $('#state').hide();
+    $('#state_btn').hide();
+    $('#cost_btn').hide();
+    $('#cost').hide();
+    $('#site_btn').hide();
+    $('#site').hide();
+    $('#site_location_btn').hide();
+    $('#site_location').hide();
+    $('#designation_btn').hide();
+    $('#designation').hide();
+    $('#holidays_csvsample').show();
+    $('#Department_csvsample').hide();
+    $('#shift_csvsample').hide();
+    $('#designation_csvsample').hide();
+    $('#cost_csvsample').hide();
+    $('#site_csvsample').hide();
+
+  }else if(tabID == "Department"){
+    $('#holidays_btn').hide()
+    $('#Department_btn').show();
+    $('#Holiday').hide();
+    $('#Department').show();
+    $('#shift_btn').hide();
+    $('#Shift').hide();
+    $('#state').hide();
+    $('#state_btn').hide();
+    $('#cost_btn').hide();
+    $('#cost').hide();
+    $('#site_btn').hide();
+    $('#site').hide();
+    $('#site_location_btn').hide();
+    $('#site_location').hide();
+    $('#designation_btn').hide();
+    $('#designation').hide();
+    $('#holidays_csvsample').hide();
+    $('#Department_csvsample').show();
+    $('#shift_csvsample').hide();
+    $('#state_csvsample').hide();
+    $('#designation_csvsample').hide();
+    $('#cost_csvsample').hide();
+    $('#site_csvsample').hide();
+
+    // alert('Department')
+  }else if(tabID == "Shift"){
+    $('#holidays_btn').hide()
+    $('#Department_btn').hide();
+    $('#Holiday').hide();
+    $('#Department').hide();
+    $('#shift_btn').show();
+    $('#Shift').show();
+    $('#state').hide();
+    $('#cost_btn').hide();
+    $('#cost').hide();
+    $('#state_btn').hide();
+    $('#site_btn').hide();
+    $('#site').hide();
+    $('#site_location_btn').hide();
+    $('#site_location').hide();
+    $('#designation_btn').hide();
+    $('#designation').hide();
+    $('#holidays_csvsample').hide();
+    $('#Department_csvsample').hide();
+    $('#shift_csvsample').show();
+    $('#state_csvsample').hide();
+    $('#designation_csvsample').hide();
+    $('#cost_csvsample').hide();
+    $('#site_csvsample').hide();
+
+  }else if(tabID == "State"){
+    // alert('State')
+    $('#holidays_btn').hide()
+    $('#Department_btn').hide();
+    $('#Holiday').hide();
+    $('#Department').hide();
+    $('#state_btn').show();
+    $('#state').show();
+    $('#Shift').hide();
+    $('#shift_btn').hide();
+    $('#cost_btn').hide();
+    $('#cost').hide();
+    $('#site_btn').hide();
+    $('#site').hide();
+    $('#site_location_btn').hide();
+    $('#site_location').hide();
+    $('#designation_btn').hide();
+    $('#designation').hide();
+    $('#holidays_csvsample').hide();
+    $('#Department_csvsample').hide();
+    $('#shift_csvsample').hide();
+    $('#state_csvsample').show();
+    $('#designation_csvsample').hide();
+    $('#cost_csvsample').hide();
+    $('#site_csvsample').hide();
+
+  }else if(tabID == "Designation"){
+    // alert('Designation')
+    $('#holidays_btn').hide()
+    $('#Department_btn').hide();
+    $('#Holiday').hide();
+    $('#Department').hide();
+    $('#designation_btn').show();
+    $('#designation').show();
+    $('#Shift').hide();
+    $('#shift_btn').hide();
+    $('#state_btn').hide();
+    $('#state').hide();
+    $('#site_btn').hide();
+    $('#site').hide();
+    $('#site_location_btn').hide();
+    $('#site_location').hide();
+    $('#cost_btn').hide();
+    $('#cost').hide();
+    $('#holidays_csvsample').hide();
+    $('#Department_csvsample').hide();
+    $('#shift_csvsample').hide();
+    $('#state_csvsample').hide();
+    $('#designation_csvsample').show();
+    $('#cost_csvsample').hide();
+    $('#site_csvsample').hide();
+
+  }else if(tabID == "Cost_Center"){
+    // alert('Cost_Center')
+    $('#holidays_btn').hide()
+    $('#Department_btn').hide();
+    $('#Holiday').hide();
+    $('#Department').hide();
+    $('#cost_btn').show();
+    $('#cost').show();
+    $('#Shift').hide();
+    $('#shift_btn').hide();
+    $('#state_btn').hide();
+    $('#state').hide();
+    $('#site_btn').hide();
+    $('#site').hide();
+    $('#site_location_btn').hide();
+    $('#site_location').hide();
+    $('#designation_btn').hide();
+    $('#designation').hide();
+    $('#holidays_csvsample').hide();
+    $('#Department_csvsample').hide();
+    $('#shift_csvsample').hide();
+    $('#state_csvsample').hide();
+    $('#designation_csvsample').hide();
+    $('#cost_csvsample').show();
+    $('#site_csvsample').hide();
+
+  }else if(tabID == "Site"){
+      // alert('Site')
+      $('#holidays_btn').hide()
+      $('#Department_btn').hide();
+      $('#Holiday').hide();
+      $('#Department').hide();
+      $('#site_btn').show();
+      $('#site').show();
+      $('#Shift').hide();
+      $('#shift_btn').hide();
+      $('#state_btn').hide();
+      $('#state').hide();
+      $('#cost_btn').hide();
+      $('#cost').hide();
+      $('#site_location_btn').hide();
+    $('#site_location').hide();
+    $('#designation_btn').hide();
+    $('#holidays_csvsample').hide();
+    $('#designation').hide();
+    $('#Department_csvsample').hide();
+    $('#shift_csvsample').hide();
+    $('#state_csvsample').hide();
+    $('#designation_csvsample').hide();
+    $('#cost_csvsample').hide();
+    $('#site_csvsample').show();
+
+  }else if(tabID == "Site_Location"){
+    // alert('Site_Location')
+    $('#holidays_btn').hide()
+      $('#Department_btn').hide();
+      $('#Holiday').hide();
+      $('#Department').hide();
+      $('#site_location_btn').show();
+      $('#site_location').show();
+      $('#Shift').hide();
+      $('#shift_btn').hide();
+      $('#state_btn').hide();
+      $('#state').hide();
+      $('#cost_btn').hide();
+      $('#cost').hide();
+      $('#site_btn').hide();
+    $('#site').hide();
+    $('#designation_btn').hide();
+    $('#designation').hide();
+    $('#holidays_csvsample').hide();
+    $('#Department_csvsample').hide();
+    $('#shift_csvsample').hide();
+    $('#state_csvsample').hide();
+    $('#designation_csvsample').hide();
+    $('#cost_csvsample').hide();
+    $('#site_csvsample').hide();
+
+  }
+}
+
+const saveholidaysforms = $('#saveholidaysforms')
+$('#saveholidays_btn').click(function(){
+  // alert('working')
+  saveholidaysforms.submit();
+})
+const shiftform = $('#shiftform')
+$('#saveshift_btn').click(function(){
+  shiftform.submit();
+})
+
+const stateform = $('#stateform')
+$('#savestate_btn').click(function(){
+  stateform.submit();
+})
+const costform = $('#costform')
+$('#savecost_btn').click(function(){
+    costform.submit();
+  })
+
+const siteform = $('#siteform')
+$('#savesite_btn').click(function(){
+  siteform.submit();
+})
+
+const sitelocationform = $('#sitelocationform')
+$('#savesitelocation_btn').click(function(){
+    sitelocationform.submit();
+})
+
+const designationform = $('#designationform')
+$('#savedesignation_btn').click(function(){
+  designationform.submit();
+})
+
+$("#savedepartment_btn").click(function(){
+  $('#savedepartmentforms').submit();
+})
+
+</script>
+{% endblock content_js %}

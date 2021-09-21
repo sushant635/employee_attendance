@@ -1,0 +1,1846 @@
+{% extends "base.html" %}
+{% block title %}{{profile_details.name}}{% endblock title  %}
+{% block content_css %}
+<style>
+h4 {
+	margin: 10px 0;
+  color:#021b79;
+}
+
+h6 {
+	margin: 5px 0;
+	text-transform: uppercase;
+}
+.label {
+  color:#0575e6;
+}
+.input {
+  color:#171717;  
+}
+p {
+	font-size: 14px;
+	line-height: 21px;
+}
+
+.card-container {
+	background-color: white;
+  /* width:25%; */
+	border-radius: 12px;
+	box-shadow: 0px 10px 20px -10px rgba(0,0,0,0.75);
+	/* color: #B3B8CD; */
+	padding-top: 30px;
+	position: relative;
+	width: 300px;
+	max-width: 100%;
+	text-align: center;
+}
+
+.card-container .pro {
+	color: #231E39;
+	background-color: #FEBB0B;
+	border-radius: 12px;
+  
+	font-size: 14px;
+	font-weight: bold;
+	padding: 3px 7px;
+	position: absolute;
+	top: 30px;
+	left: 30px;
+}
+
+.card-container .round {
+	/* border: 1px solid #03BFCB; */
+	border-radius: 50%;
+	padding: 7px;
+}
+
+button.primary {
+	background-color: #03BFCB;
+	border: 1px solid #03BFCB;
+	border-radius: 3px;
+	color: #231E39;
+	font-family: Montserrat, sans-serif;
+	font-weight: 500;
+	padding: 10px 25px;
+}
+
+button.primary.ghost {
+	background-color: transparent;
+	color: #02899C;
+}
+
+.skills {
+	/* background-color: #1F1A36; */
+	text-align: left;
+	padding: 15px;
+	margin-top: 0px;
+}
+
+.skills ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.skills ul li {
+	border: 1px solid #2D2747;
+	border-radius: 2px;
+	display: inline-block;
+	font-size: 12px;
+	margin: 0 7px 7px 0;
+	padding: 7px;
+}
+.tab {
+  overflow: hidden;
+  /* border: 1px solid #ccc; */
+  /* border-radius:10px; */
+  /* border-left: 1px solid; */
+  background-color: #f0f2fa	;
+  /* width:500px; */
+}
+
+
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: white  !important;
+  float: left;
+  border: none;
+  outline: none;
+  /* border: 1px solid #ccc; */
+
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 14px 35px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+.tab button:last-child{
+  border-right: 1px solid #ccc;
+  border-radius: 5px;
+}
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 5px 6px 6px 2px #e9ecef
+}
+
+.heading {
+    font-size: 23px;
+    font-weight: 00
+}
+input{
+  background:#f0f2fa !important;
+  border: none !important;
+  
+}
+.tab button.active {
+  /* background-color:#021b78 ; */
+  color: #f0f2fa;
+  background-image: linear-gradient(#0575e6, #021b78);
+  /* background-image: linear-gradient(#0575e6 40%, #021b79 60%); */
+  font-weight: bolder;
+  /* font-size: 24px; */
+
+}
+
+/* Style the tab content */
+.tabcontent1 {
+  display: none;
+  padding: 6px 12px;
+  border-top: none;
+}
+.topnav {
+  overflow: hidden;
+  /* background-image: linear-gradient(#68A000, #3E5622); */
+  background-image: linear-gradient(180deg,#0575e6 20%, #021b78);
+  /* background: -webkit-gradient(linear, center top, center bottom, color-stop(0%,#0575e6), color-stop(20%,#0575e6), color-stop(40%,#021b78), color-stop(90%,#021b78), color-stop(100%,#021b78)); */
+
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  width:100%;
+  height: 65px;
+}
+.scrollable {
+    height: 1000px; 
+    overflow-y: auto;
+    margin-top: 20px;
+}
+.file-upload {
+  background-color: #ffffff;
+  width: 400px;
+  margin: 0 auto;
+  /* padding: 20px; */
+}
+
+
+
+.file-upload-btn:hover {
+  background:#f0f2fa;
+  color: #ffffff;
+  transition: all .2s ease;
+  cursor: pointer;
+}
+
+.file-upload-btn:active {
+  border: 0;
+  transition: all .2s ease;
+}
+
+.file-upload-content {
+  display: none;
+  text-align: center;
+}
+
+.file-upload-input {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.image-upload-wrap {
+  /* margin-top: 20px; */
+  /* background-color:#f0f2fa; */
+  /* border-radius: 10px; */
+  /* border: 2px dashed lightslategray; */
+  /* height: 200px; */
+  position: relative;
+}
+
+/* .image-dropping,
+.image-upload-wrap:hover {
+  /* background-color: #f0f2fa; */
+  /* border: 2px dashed lightslategray;
+} */
+
+.image-title-wrap {
+  padding: 0 15px 15px 15px;
+  color: #222;
+}
+
+/* .drag-text {
+  text-align: center;
+} */
+
+.drag-text h3 {
+  font-weight: 100;
+  text-transform: uppercase;
+  color: #15824B;
+  padding: 60px 0;
+}
+
+.file-upload-image {
+  max-height: 300px;
+  max-width: 300px;
+  margin: auto;
+  padding: 20px;
+}
+
+.remove-image {
+  width: 200px;
+  margin: 0;
+  color: #fff;
+  background: #cd4535;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  border-bottom: 4px solid #b02818;
+  transition: all .2s ease;
+  outline: none;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.remove-image:hover {
+  background: #c13b2a;
+  color: #ffffff;
+  transition: all .2s ease;
+  cursor: pointer;
+}
+
+.remove-image:active {
+  border: 0;
+  transition: all .2s ease;
+}
+.form-select{
+  background-color:#f0f2fa !important;
+  border: none !important;
+}
+.i-am-centered {
+   margin: auto;
+    /* max-width: 300px; */
+  }
+  .data{
+  margin-left: 100px !important;
+}
+.card-detail{
+  margin-top: 45px !important;
+}
+</style>
+{% endblock content_css %}
+{% block user_name %}
+{{emp_name.name}}
+{% endblock user_name %}
+{% block user_image %}
+<img class="round" src="data:;base64,{{ emp_name.image }}" alt="user" style="height: 40px; width: 40px; border-radius: 50%;"/>
+{% endblock user_image %}
+{% block content %} 
+
+<div class='row mt-5 '>
+  <!-- <div > -->
+      <div class='col-lg-3 mt-3 ps-5 ms-5 '>
+          <h4 style="color: #171717;">Employee Profile</h4>
+      </div>
+      <div class='col-lg-6 mt-3'>
+        <div class="tab ">
+          <button class="tablinks" onclick="openCity(event, 'home')" id="defaultOpen">Personal</button>
+          <button class="tablinks"  onclick="openCity(event, 'work')">Work </button>
+          <button class="tablinks" onclick="openCity(event, 'holidays')">Holidays</button>
+          <button class="tablinks"  onclick="openCity(event, 'hr')">HR Setting</button>
+          <button class="tablinks" onclick="openCity(event, 'safr')">SAFR Identity</button>
+        </div>
+      </div>
+</div>
+
+<div id='home' class='tabcontent1 '>
+  <div class="container mt-5  justify-content-center">
+    <div class="card ">
+     <div class='topnav'>
+       <div class='row'>
+        <div class='col-lg-9'>
+          <h4 class='ps-4 p-2 text-light' >Basic Info</h4>
+        </div>
+        <div class='col-lg-1'>
+          <h5 class='ps-4 p-3 text-light' id='basicinforedit' style="cursor: alias;"><u>Edit</u></h5>
+          <!-- <input type="submit" class=" p-3 text-light text-light" style="background-color:#021b78 ;" value='save' id='submit' > -->
+        </div>
+        <div class='col-lg-2'>
+          <h5 class='ps-4 p-3 text-light' style="cursor: alias;"><u>Save</u></h5>
+        </div>
+       </div>
+     </div>
+      <div class='p-5 pt-2'>
+        <div class="row m-2">
+          <!-- <div class="col-lg-9"> -->
+          <div class='file-upload'>
+            <div class="image-upload-wrap">
+              <input class="file-upload-input" type='file' onchange="readURL(this);" id="image" accept="image/*"  name='profile' disable/>
+              <div class="drag-text">
+                <!-- <h3>Drag and drop a file or select add Image</h3> -->
+                <img class='text-center' src="data:;base64,{{ profile_details.image }}"  style="height: 300px; width: 300px;">
+              </div>
+            </div>
+            <div class="file-upload-content">
+              <img class="file-upload-image" src="#" alt="your image" />
+              <div class="image-title-wrap">
+                <!-- <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button> -->
+              </div>
+            </div>
+          </div>
+            
+            <!-- <label for="image" id="imgaelabel" class="btn btn-dark">Add file</label > -->
+            <!--i-am-centered <input type="file" onchange="readURL(this);" id="image" name="profile" hidden /> -->
+            <!-- <img id="blah" src="#" /> -->
+          <!-- </div> -->
+          <!-- <div class="col-lg-3"> -->
+            
+          <!-- </div> -->
+        </div>
+        <div class="row mt-5 justify-content-center ms-5">
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="col-lg-5">
+                <label class="form-label" for="firstname">Name</label>
+              </div>
+              <div class="col-lg-5">
+                <input type="text" id="firstname" name="firstname" value='{{profile_details.name}}' class="form-control" disabled/>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="col-lg-5">
+                <label class="form-label">Employee Code</label>
+              </div>
+              <div class="col-lg-5">
+                <input type="text" id="emp_code" name="emp_code" value='{{profile_details.emp_code}}' class="form-control" disabled/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4 justify-content-center ms-5">
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="col-lg-5">
+                <label class="form-label">Confirmation Date</label>
+              </div>
+              <div class="col-lg-5">
+                  <input type="date" class="form-control" name="confirmationdate" value='{{profile_details.confirmation_date}}' id="confirmationdate" disabled/>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="col-lg-5">
+                <label class="form-label">Employee Status</label>
+              </div>
+              <div class="col-lg-5">
+                  <select name="position_type" id="position_type" class="form-select bg-light"  disabled>
+                      <option value='{{profile_details.status}}'>{{profile_details.status}}</option>
+                      <option value="probation">Probation</option>
+                      <option value="confirm">Permanent</option>
+                    </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4 justify-content-center ms-5">
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="col-lg-5">
+                <label class="form-label">Date of joining</label>
+              </div>
+              <div class="col-lg-5">
+                  <input type="date" class="form-control" name="joiningdate" id="joiningdate" value='{{profile_details.joining_date}}' disabled/>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="col-lg-5">
+              <label class="form-label">ESIC Location</label>
+              </div>
+              <div class="col-lg-5">
+                  <select name="esic_location" id="esic_location" class="form-select" disabled>
+                      <option value='{{profile_details.esic_location}}'>{{profile_details.esic_location}}</option>
+                      {% for i in esic_location %}
+                      <option value="{{i.id}}">{{i.name}}</option>
+                      {% endfor %}
+                  </select>
+              </div>
+          </div>
+          </div>
+        </div>
+        <div class="row mt-4 justify-content-center ms-5">
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="col-lg-5">
+                <label class="form-label" for="site">Site</label>
+              </div>
+              <div class="col-lg-5">
+                  <select name="site" id="site" class="form-select" disabled>
+                      <option value='{{profile_details.site_master_id}}'>{{profile_details.site_master_id}}</option>
+                      {% for i in site %}
+                      <option value="{{i.id}}">{{i.name}}</option>
+                      {% endfor %}
+                  </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="col-lg-5">
+                <label class="form-label" for="hr_executive">HR SPOC</label>
+              </div>
+              <div class="col-lg-5">
+                  <select name="hr_executive" id="hr_executive" class="form-select" disabled>
+                      <option value='{{profile_details.hr_executive_id}}'>{{profile_details.hr_executive_id}}</option>
+                      {% for i in hr_name %}
+                      <option value="{{i.id}}">{{i.name}}</option>
+                      {% endfor %}
+                  </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4 justify-content-center ms-5">
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="col-lg-5">
+                <label class="form-label" for="department">Department</label>
+              </div>
+              <div class="col-lg-5">
+                  <select name="department" id="department" class="form-select" disabled>
+                      <option value='{{profile_details.dempartment}}'>{{profile_details.dempartment}}</option>
+                      {% for i in department %}
+                      <option value="{{i.id}}">{{i.name}}</option>
+                      {% endfor %}
+                  </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="col-lg-5">
+                <label class="form-label" for="reporting">Reporting to</label>
+              </div>
+              <div class="col-lg-5">
+                  <select name="reporting" id="reporting" class="form-select" disabled>
+                      <option value='{{profile_details.reporting}}'>{{profile_details.reporting}}</option>
+                      {% for i in hr_name %}
+                      <option value="{{i.id}}">{{i.name}}</option>
+                      {% endfor %}
+                  </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4 justify-content-center ms-5">
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="col-lg-5">
+                <label class="form-label" for="designation">Designation</label>
+              </div>
+              <div class="col-lg-5">
+                  <select name="designation" id="designation" class="form-select" disabled>
+                      <option value='{{profile_details.designation}}'>{{profile_details.designation}}</option>
+                      {% for i in job %}
+                      <option value="{{i.id}}">{{i.name}}</option>
+                      {% endfor %}
+                  </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="col-lg-5">
+                <label class="form-label" for="grade">Grade</label>
+              </div>
+              <div class="col-lg-5">
+                  <select name="grade" id="grade" class="form-select" disabled>
+                      <option value='{{profile_details.grade}}'>{{profile_details.grade}}</option>
+                      {% for i in grade %}
+                      <option value="{{i.id}}">{{i.name}}</option>
+                      {% endfor %}
+                  </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4 justify-content-center ms-5">
+          <div class="col-lg-6">
+            <div class="row">
+              <!-- <div class="col-lg-4">
+                <label class="form-label" for="site_location">Designation</label>
+              </div>
+              <div class="col-lg-4">
+                  <select name="site_location" id="site_location" class="form-control">
+                      <option >-------------</option>
+                      {% for i in job %}
+                      <option value="{{i.id}}">{{i.name}}</option>
+                      {% endfor %}
+                  </select>
+              </div> -->
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="col-lg-5">
+                <label class="form-label" for="notice_period">Notice Period</label>
+              </div>
+              <div class="col-lg-5">
+                  <input type="text" name='notice_period' id='notice_period' value='{{profile_details.notice}}' class="form-control" disabled/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="container   justify-content-center mt-3 ">
+  <form method='POST' action='/change_basic_details/' id='basiceditform'>
+    {% csrf_token %}
+    <div class="card ">
+      <div class='topnav'>
+        <div class='row'>
+          <div class='col-lg-9'>
+            <h4 class='ps-4 p-2 text-light'>Basic Info</h4>
+          </div>
+          <div class='col-lg-1'>
+            <h5 class='ps-4 p-3 text-light ' id='basicedit_id' style="cursor: alias;"><u>Edit</u></h5>
+            <!-- <input type="submit" class=" p-3 text-light text-light" style="background-color:#021b78 ;" value='save' id='submit' > -->
+          </div>
+          <div class='col-lg-2'>
+            <h5 class='ps-4 p-3 text-light' style="cursor: alias;" id="savebasicinfo" disabled><u>Save</u></h5>
+          </div>
+         </div>
+      </div>
+      <div class='p-5 pt-2'>
+        <div class="row mt-4 justify-content-center ms-5">
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="col-lg-5">
+                <label class="form-label" for="fathername">Father's Name</label>
+              </div>
+              <div class="col-lg-5">
+                <input type="text" id="fathername" name="fathername" class="form-control" value="{{emp.father_name}}" disabled/>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="col-lg-5">
+                <label class="form-label" for="blood_group">Blood Group</label>
+              </div>
+              <div class="col-lg-5">
+                <select name="blood_group" id="blood_group" class="form-select" disabled>
+                  <option value='{{emp.blood_group}}'>{{emp.blood_group}}</option>
+                  <option value="a_positive">A+ve</option>
+                  <option value="a_negative">A-ve</option>
+                  <option value="b_positive">B+ve</option>
+                  <option value="b_negative">B-ve</option>
+                  <option value="ab_positive">AB+ve</option>
+                  <option value="ab_negative">AB-ve</option>
+                  <option value="o_positive">O+ve</option>
+                  <option value="o_negative">O-ve</option>
+                  <option value="na">NA</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4 justify-content-center ms-5">
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="col-lg-5">
+                <label class="form-label" for="mother_name">Mother's Name</label>
+              </div>
+              <div class="col-lg-5">
+                <input type="text" id="mother_name" name="mother_name" class="form-control" value='{{emp.mother_name}}' disabled/>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="col-lg-5">
+                <label class="form-label" for="birthday">Date of Birth</label>
+              </div>
+              <div class="col-lg-5">
+                <input type="date" id="birthday" name="birthday" class="form-control" value='{{emp.birthday}}' disabled/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4 justify-content-center ms-5">
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="col-lg-5">
+                <label class="form-label" for="spouse_name">Spouse Name</label>
+              </div>
+              <div class="col-lg-5">
+                <input type="text" id="spouse_name" name="spouse_name" class="form-control" value='{{emp.spouse_name}}' disabled/>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="col-lg-5">
+                <label class="form-label" for="physicall_disabled">Physically Disabled</label>
+              </div>
+              <div class="col-lg-5">
+                <input type="text" id="physicall_disabled" name="physicall_disabled" value='{{emp.physicall_disabled}}' class="form-control" disabled/>
+                <div style="display: none;" id='editphysical'>
+                  <input type="radio" id="yes" name="physically_disabled" value="yes">
+                <label for="yes">Yes</label><br>
+                <input type="radio" id="no" name="physically_disabled" value="no">
+                <label for="no">No</label><br>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4 justify-content-center ms-5">
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="col-lg-5">
+                <label class="form-label" for="gender">Gender</label>
+              </div>
+              <div class="col-lg-5">
+                <select name="gender" id="gender" class="form-select" disabled>
+                  <option value='{{emp.gender}}'>{{emp.gender}}</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+          </div>
+        </div>
+        <div class="row mt-4 justify-content-center ms-5">
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="col-lg-5">
+                <label class="form-label" for="marital">Marital Status</label>
+              </div>
+              <div class="col-lg-5">
+                <select name="marital" id="marital" class="form-select" disabled>
+                  <option value='{{emp.marital}}'>{{emp.marital}}</option>
+                  <option value="single">Single</option>
+                  <option value="married">Married</option>
+                  <option value="cohabitant">Legal Cohabitant</option>
+                  <option value="widower">Widower</option>
+                  <option value="divorced">Dphysicall_disabledivorced</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+          </div>
+        </div>
+      </div>
+    </div>
+    {% for message in messages %}
+    <script>
+      window.onload = function(){
+        alert('{{message}}')
+      }
+    </script>
+    {% endfor %}
+  </form>
+</div>
+<div class='container mt-5  justify-content-center'>
+  <div class="card ">
+    <div class='topnav'>
+      <div class='row'>
+        <div class='col-lg-9'>
+          <h4 class='ps-4 p-2 text-light ' >Contact Details</h4>
+        </div>
+        <div class='col-lg-1'>
+          <h5 class='ps-4 p-3 text-light' id='contactedit' style="cursor: alias;"><u>Edit</u></h5>
+          <!-- <input type="submit" class=" p-3 text-light text-light" style="background-color:#021b78 ;" value='save' id='submit' > -->
+        </div>
+        <div class='col-lg-2'>
+          <h5 class='ps-4 p-3 text-light' style="cursor: alias;"><u>Save</u></h5>
+        </div>
+       </div>
+    </div>
+    <div class='p-5 pt-2'>
+      <div class="row mt-4 justify-content-center ms-5">
+        <div class="col-lg-5">
+          <label class="form-label" for="current_address">Current Address</label>
+        </div>
+        <div class="col-lg-7">
+          <input type="text" id="current_address" name="current_address" class="form-control" value='{{emp.address}}' disabled/>
+        </div>
+        </div>
+      <div class="row justify-content-center ms-5">
+        <div class="col-lg-5">
+          <input type="checkbox" id="filladdress" value='{{emp.same}}' name="filladdress" {{emp.same}}  disabled/>    Same as current address?
+        </div>
+        <div class="col-lg-7">
+        </div>
+      </div>
+      <div class="row mt-4 justify-content-center ms-5">
+        <div class="col-lg-5">
+          <label class="form-label" for="per_address">Permanent Address</label>
+        </div>
+        <div class="col-lg-7">
+          <input type="text" id="per_address" name="per_address" value='{{emp.per_address}}' disabled class="form-control" />
+        </div>
+      </div>
+      <div class="row mt-5 justify-content-center ms-5">
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col-lg-5">
+              <label class="form-label" for="personal_email">Personal Email:</label>
+            </div>
+            <div class="col-lg-5">
+              <input type="email" id="personal_email" name="personal_email" value="{{emp.personal_email}}" class="form-control" disabled/>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col-lg-5">
+              <label class="form-label" for="personal_mobile">Mobile</label>
+            </div>
+            <div class="col-lg-5">
+              <input type="text" id="personal_mobile" name="personal_mobile" disabled value='{{emp.personal_mobile}}' class="form-control"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4 justify-content-center ms-5">
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col-lg-5">
+              <label class="form-label" for="emergency_contact_name">Emergency Contact Person:</label>
+            </div>
+            <div class="col-lg-5">
+              <input type="text" id="emergency_contact_name" name="emergency_contact_name" disabled value='{{emp.emergency_contact_name}}' class="form-control" />
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col-lg-5">
+              <label class="form-label" for="emergency_contact_number">Emergency Contact No</label>
+            </div>
+            <div class="col-lg-5">
+              <input type="text" id="emergency_contact_number" name="emergency_contact_number" disabled value='{{emp.emergency_contact_number}}' class="form-control"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4 justify-content-center ms-5">
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col-lg-5">
+              <label class="form-label" for="emergency_contact_relation">Relation:</label>
+            </div>
+            <div class="col-lg-5">
+              <input type="text" id="emergency_contact_relation" name="emergency_contact_relation" class="form-control" value='{{emp.emergency_contact_relation}}' disabled/>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class='container mt-5  justify-content-center'> 
+  <div class="card ">
+    <div class='topnav'>
+      <div class='row'>
+        <div class='col-lg-9'>
+          <h4 class='ps-4 p-2 text-light ' >Identification</h4>
+        </div>
+        <div class='col-lg-1'>
+          <h5 class='ps-4 p-3 text-light ' id='Identificationedit' style="cursor: alias;"><u>Edit</u></h5>
+        </div>
+        <div class='col-lg-2'>
+          <h5 class='ps-4 p-3 text-light' style="cursor: alias;"><u>Save</u></h5>
+        </div>
+       </div>
+    </div>
+    <div class='p-5 pt-2'>
+      <div class="row mt-4 justify-content-center ms-5">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-lg-5">
+              <label class="from-label" for="country_id">Nationality (Country)</label>
+            </div>
+            <div class="col-lg-5">
+              <!-- <input type="text" name='country_id' id="country_id" class="form-control" value='{{emp.country_id}}' disabled/> -->
+              <select name="country_id" id="country_id" class="form-select" disabled>
+                <option value='{{emp.country_id}}'>{{emp.country_id}}</option>
+                {% for i in country %}
+                <option value="{{i.id}}">{{i.name}}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col-lg-5">
+              <label class="form-label" for="state_id">State:</label>
+            </div>
+            <div class="col-lg-5">
+              <select name="state_id" id="state_id" class="form-select" disabled>
+                <option value='{{emp.state_id}}'>{{emp.state_id}}</option>
+                {% for i in state %}
+                <option value="{{i.id}}">{{i.name}}</option>
+                {% endfor %}
+              </select>
+                <!-- <input type="text" name="state _id" id="state_id" class="form-control" value='{{emp.state_id}}'  disabled/> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4 justify-content-center ms-5">
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col-lg-5">
+              <label class="from-label" for="pan">PAN:</label>
+            </div>
+            <div class="col-lg-5">
+              <input type="text" name='pan' id="pan" class="form-control" value='{{emp.pan}}' disabled/>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col-lg-5">
+              <label class="form-label" for="aadhar">Aadhaar:</label>
+            </div>
+            <div class="col-lg-5">
+                <input type="text" name="aadhar" id="aadhar" class="form-control" value='{{emp.aadhar}}'  disabled/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class='container mt-5  justify-content-center'>
+  <div class='card'>
+    <div class='topnav'>
+      <div class='row'>
+        <div class='col-lg-9'>
+          <h4 class='ps-4 p-2 text-light'>Account Details</h4>
+        </div>
+        <div class='col-lg-1'>
+          <h5 class='ps-4 p-3 text-light ' id='accountdetails' style="cursor: alias;"><u>Edit</u></h5>
+          <!-- <input type="submit" class=" p-3 text-light text-light" style="background-color:#021b78 ;" value='save' id='submit' > -->
+        </div>
+        <div class='col-lg-2'>
+          <h5 class='ps-4 p-3 text-light' style="cursor: alias;"><u>Save</u></h5>
+        </div>
+       </div>
+    </div>
+    <div class='p-5 pt-2'>
+      <div class="row mt-4 justify-content-center ms-5">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-lg-5">
+              <label class="from-label" for="bank_id">Bank Name</label>
+            </div>
+            <div class="col-lg-5">
+              <!-- <input type="text" name='bank_id' id="bank_id" value='{{emp.bank_id}}' class="form-control" disabled/> -->
+              <select name="bank_id" id="bank_id" class="form-select" disabled>
+                <option value='{{emp.bank_id}}'>{{emp.bank_id}}</option>
+                {% for i in bank %}
+                <option value="{{i.id}}">{{i.name}}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-lg-5">
+              <label class="form-label" for="other_bank_name">Account Number</label>
+            </div>
+            <div class="col-lg-5">
+                <input type="text" name="other_bank_name" id="other_bank_name" class="form-control" value='{{emp.other_bank_name}}'  disabled/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4 justify-content-center ms-5">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-lg-5">
+              <label class="from-label" for="branch_name">Branch Name</label>
+            </div>
+            <div class="col-lg-5">
+              <input type="text" name='branch_name' id="branch_name" class="form-control" value='{{emp.branch_name}}' disabled/>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-lg-5">
+              <label class="form-label" for="ifsc_code">IFSC Code</label>
+            </div>
+            <div class="col-lg-5">
+                <input type="text" name="ifsc_code" id="ifsc_code" class="form-control" value='{{emp.ifsc_code}}' disabled/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div class='container mt-5  justify-content-center'>
+            <div class='card'>
+              <div class='topnav'>
+                <h4 class='ps-4 p-2 text-light' >Passport Details</h4>
+              </div>
+              <div class="p-5">
+                <div class="row mt-4">
+                  <div class="col-md-6">
+                    <div class="row">
+                      <div class="col-lg-5">
+                        <label class="from-label" for="passport_id">Passport No</label>
+                      </div>
+                      <div class="col-lg-5">
+                        <input type="text" name='passport_id' id="passport_id" class="form-control" value='{{emp.passport_id}}' disabled/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="row">
+                      <div class="col-lg-5">
+                        <label class="form-label" for="passport_expire_date">Passport Expire Date</label>
+                      </div>
+                      <div class="col-lg-7">
+                          <input type="text" name="passport_expire_date" id="passport_expire_date" class="form-control" value='{{emp.passport_expire_date}}' disabled/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-4">
+                  <div class="col-md-6">
+                    <div class="row">
+                      <div class="col-lg-5">
+                        <label class="from-label" for="visa_no">Visa No</label>
+                      </div>
+                      <div class="col-lg-5">
+                        <input type="text" name='visa_no' id="visa_no" class="form-control" value='{{emp.visa_no}}' disabled/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="row">
+                      <div class="col-lg-5">
+                        <label class="form-label" for="visa_expire">Visa Expire Date</label>
+                      </div>
+                      <div class="col-lg-7">
+                          <input type="text" name="visa_expire" id="visa_expire" class="form-control" value='{{emp.visa_expire}}'  disabled/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+</div>
+
+<div id='work' class='tabcontent1'>
+  <div class='container-fluid	'>
+    <div class='row'>
+      <div class='col-lg-3 '>
+        <div class='align-items-center card-detail  d-flex  flex-column min-vh-100'>
+          <div class="card-container">
+            <img class="img-fluid round" src="data:;base64,{{ profile_details.image }}" alt="user" style="height: 100px; width: 100px;"/>
+            <h4 value='{{i.id}}'>{{profile_details.name}}</h4>
+            <div class='row '>
+              <div class='col-lg-5 ps-1'>
+                <label class='form-label label'>Emp Code:</label>
+              </div>
+              <div class='col-lg-5'>
+                <label class='form-label input'>{{profile_details.emp_code}}</label>
+              </div>
+            </div>
+            <div class='row '>
+              <div class='col-lg-5 ps-1'>
+                <label class='form-label label'>Designation:</label>
+              </div>
+              <div class='col-lg-7'>
+                <label class='form-label input'>{{profile_details.designation}}</label>
+              </div>
+            </div>
+            <div class='row '>
+              <div class='col-lg-5 ps-2'>
+                <label class='form-label label'>Reporting to:</label>
+              </div>
+              <div class='col-lg-5'>
+                <label class='form-label input'>{{profile_details.reporting}}</label>
+              </div>
+            </div>
+            <div class='row '>
+              <div class='col-lg-5 ps-2'>
+                <label class='form-label label'>Department:</label>
+              </div>
+              <div class='col-lg-4'>
+                <label class='form-label input'>{{profile_details.dempartment}}</label>
+              </div>
+            </div>
+            <div class='row '>
+              <div class='col-lg-6 ps-2'>
+                <label class='form-label label'>Employee Status:</label>
+              </div>
+              <div class='col-lg-5'>
+                <label class='form-label input'>{{profile_details.status}}</label>
+              </div>
+            </div>
+            <div class='row '>
+              <div class='col-lg-6 ps-2'>
+                <label class='form-label label'>Date of joining</label>
+              </div>
+              <div class='col-lg-5'>
+                <label class='form-label input'>{{profile_details.joining_date}}</label>
+              </div>
+            </div>
+            <div class='row '>
+              <div class='col-lg-6 ps-2'>
+                <label class='form-label label'>Confirmation Date:</label>
+              </div>
+              <div class='col-lg-5'>
+                <label class='form-label input'>{{profile_details.confirmation_date}}</label>
+              </div>
+            </div>
+            <div class='row '>
+              <div class='col-lg-6 ps-1'>
+                <label class='form-label label'>Grade:</label>
+              </div>
+              <div class='col-lg-4'>
+                <label class='form-label input'>{{profile_details.grade}}</label>
+              </div>
+            </div>
+            <div class='row '>
+              <div class='col-lg-6 ps-2'>
+                <label class='form-label label'>Notice Period:</label>
+              </div>
+              <div class='col-lg-4'>
+                <label class='form-label input'>{{profile_details.notice}}</label>
+              </div>
+            </div>
+            <!-- <h6>New York</h6> -->
+            <div class="skills">
+            </div>
+          <!-- </div> -->
+          </div>
+        </div>
+      </div>
+      <div class='col-lg-9 '>
+        <div class='container mt-5  justify-content-center '>
+          <div class='card'>
+            <div class='topnav'>
+              <div class='row'>
+                <div class='col-lg-9'>
+                  <h4 class='ps-4 p-2 text-light'>Work Info</h4>
+                </div>
+                <div class='col-lg-1'>
+                  <h5 class='ps-4 p-3 text-light ' id='workinfoedit' style="cursor: alias;"><u>Edit</u></h5>
+                </div>
+                <div class='col-lg-2'>
+                  <h5 class='ps-4 p-3 text-light' style="cursor: alias;"><u>Save</u></h5>
+                </div>
+               </div>
+              <!-- <h4 class='ps-4 p-2 text-light' >Work Info</h4> -->
+            </div>
+            <div class='p-5 pt-2'>
+              <div class="row mt-4 justify-content-center ms-5">
+                <div class="col-lg-6">
+                  <div class="row">
+                    <div class="col-lg-5">
+                      <label class="form-label" for="company_id">Company</label>
+                    </div>
+                    <div class="col-lg-5">
+                      <select name="company_id" id="company_id" class="form-select" disabled>
+                        <option value='{{emp.company_id}}'>{{emp.company_id}}</option>
+                        {% for i in company %}
+                        <option value="{{i.id}}">{{i.name}}</option>
+                        {% endfor %}
+                    </select>
+                      <!-- <input type="text" id="company_id" name="company_id" class="form-control" value='{{emp.company_id}}' disabled /> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="row">
+                    <div class="col-lg-5">
+                      <label class="form-label" for="shift_id">Shift</label>
+                    </div>
+                    <div class="col-lg-5">
+                      <select name="shift_id" id="shift_id" class="form-select" disabled>
+                        <option value='{{emp.shift_id}}'>{{emp.shift_id}}</option>
+                        {% for i in shift %}
+                        <option value="{{i.id}}">{{i.name}}</option>
+                        {% endfor %}
+                    </select>
+                      <!-- <input type="text" id="shift_id" name="shift_id" class="form-control" value='{{emp.shift_id}}' disabled/> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-4 justify-content-center ms-5">
+                <div class="col-lg-6">
+                  <div class="row">
+                    <div class="col-lg-5">
+                      <label class="form-label" for="site_master_id">Site Location</label>
+                    </div>
+                    <div class="col-lg-5">
+                      <select name="site_location" id="site_location" class="form-select" disabled>
+                        <option value='{{emp.site_master_id}}'>{{emp.site_master_id}}</option>
+                        {% for i in esic_location %}
+                        <option value="{{i.id}}">{{i.name}}</option>
+                        {% endfor %}
+                    </select>
+                      <!-- <input type="text" id="site_master_id" name="site_master_id" class="form-control" value='{{emp.site_master_id}}' disabled/> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="row">
+                    <div class="col-lg-5">
+                      <label class="form-label" for="experiance_id">Total Experience</label>
+                    </div>
+                    <div class="col-lg-5">
+                      <select name="total_experience" id="total_experience" class="form-select" disabled>
+                        <option value='{{emp.experiance_id}}'>{{emp.experiance_id}}</option>
+                        {% for i in experiance %}
+                        <option value="{{i.id}}">{{i.experiance}}</option>
+                        {% endfor %}
+                    </select>
+                      <!-- <input type="text" id="experiance_id" name="experiance_id" class="form-control" value='{{emp.experiance_id}}' disabled/> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-4 justify-content-center ms-5">
+                <div class="col-lg-6">
+                  <div class="row">
+                    <div class="col-lg-5">
+                      <label class="form-label" for="work_email">Work Email</label>
+                    </div>
+                    <div class="col-lg-5">
+                      <input type="text" id="work_email" name="work_email" class="form-control" value='{{emp.work_email}}' disabled/>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="row">
+                    <div class="col-lg-5">
+                      <label class="form-label" for="cost_center_id">Cost Center Name</label>
+                    </div>
+                    <div class="col-lg-5">
+                      <select name="cost_center_name" id="cost_center_name" class="form-select" disabled>
+                        <option value='{{emp.cost_center_id}}'>{{emp.cost_center_id}}</option>
+                        {% for i in cost %}
+                        <option value="{{i.id}}">{{i.name}}</option>
+                        {% endfor %}
+                    </select>
+                      <!-- <input type="text" id="cost_center_id" name="cost_center_id" value='{{emp.cost_center_id}}' class="form-control" disabled/> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-4 justify-content-center ms-5">
+                <div class="col-lg-6">
+                  <div class="row">
+                    <div class="col-lg-5">
+                      <label class="form-label" for="work_phone">Work Phone</label>
+                    </div>
+                    <div class="col-lg-5">
+                      <input type="text" id="work_phone" name="work_phone" value='{{emp.work_phone}}' class="form-control" disabled/>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="row">
+                    <div class="col-lg-5">
+                      <label class="form-label" for="weekly_off">Weekly Off</label>
+                    </div>
+                    <div class="col-lg-5">
+                      <select name="weekly_off" id="weekly_off" class="form-select" disabled>
+                        <option value='{{emp.weekly_off}}'>{{emp.weekly_off}}</option>
+                        <option value="sunday">Sunday</option>
+                        <option value="monday">Monday</option>
+                        <option value="tuesday">Tuesday</option>
+                        <option value="wednesday">Wednesday</option>
+                        <option value="thursday">Thursday</option>
+                        <option value="friday">Friday</option>
+                        <option value="saturday">Saturday</option>
+                      </select>
+                      <!-- <input type="text" id="weekly_off" name="weekly_off" value='{{emp.weekly_off}}' class="form-control" disabled/> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-4 justify-content-center ms-5">
+                <div class="col-lg-6">
+                  <div class="row">
+                    <div class="col-lg-5">
+                      <label class="form-label" for="mobile_phone">Alternate Phone</label>
+                    </div>
+                    <div class="col-lg-5">
+                      <input type="text" id="mobile_phone" name="mobile_phone" class="form-control" value='{{emp.mobile_phone}}' disabled/>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="row">
+                    <div class="col-lg-5">
+                      <label class="form-label" for="emp_category">Category</label>
+                    </div>
+                    <div class="col-lg-5">
+                      <select name="category_id" id="category_id" class="form-select">
+                        <option value='{{emp.emp_category}}'>{{emp.emp_category}}</option>
+                        <option value="staff">Staff</option>
+                    </select>
+                      <!-- <input type="text" id="emp_category" name="emp_category" value='{{emp.emp_category}}' class="form-control" disabled/> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class='container mt-5  justify-content-center'>
+            <div class='card'>
+              <div class='topnav'>
+                <h4 class='ps-4 p-2 text-light' >Previous Company Details</h4>
+              </div>
+              <div class='p-5'>
+                <div class="row mt-4">
+                  <div class="col-lg-6">
+                    <div class="row">
+                      <div class="col-lg-5">
+                        <label class="form-label" for="previous_company">Company Name</label>
+                      </div>
+                      <div class="col-lg-5">
+                        <input type="text" id="previous_company" name="previous_company" class="form-control" value='{{emp.previous_company}}' disabled/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="row">
+                      <div class="col-lg-5">
+                        <label class="form-label" for="previous_designation">Designation</label>
+                      </div>
+                      <div class="col-lg-5">
+                        <input type="text" id="previous_designation" name="previous_designation" class="form-control" value='{{emp.previous_designation}}' disabledid/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <!-- <div class='container mt-5  justify-content-center'>
+            <div class='card'>
+              <div class='topnav'>
+                <div class='row'>
+                  <div class='col-lg-9'>
+                    <h4 class='ps-4 p-2 text-light'>Do you hold a PF/ESIC account?</h4>
+                  </div>
+                  <div class='col-lg-1'>
+                    <h5 class='ps-4 p-3 text-light ' id='save'><u>Edit</u></h5>
+                  </div>
+                  <div class='col-lg-2'>
+                    <h5 class='ps-4 p-3 text-light'><u>Save</u></h5>
+                  </div>
+                </div>
+                 <h4 class='ps-4 p-2 text-light' >Do you hold a PF/ESIC account?</h4> 
+              </div>
+              <div class='p-5 pt-2'>
+                <div class="row mt-4 justify-content-center ms-5">
+                  <div class="col-lg-6">
+                    <div class="row">
+                      <div class="col-lg-5">
+                        <label class="form-label" for="pf_uan_no">Existing UAN Number</label>
+                      </div>
+                      <div class="col-lg-5">
+                        <input type="text" id="pf_uan_no" name="pf_uan_no" class="form-control" value='{{emp.pf_uan_no}}'  disabled/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="row">
+                      <div class="col-lg-5">
+                        <label class="form-label" for='esic_uan_no'>Existing ESIC Number</label>
+                      </div>
+                      <div class="col-lg-5">
+                        <input type="text" id="esic_uan_no" name="esic_uan_no" class="form-control" value="{{emp.esic_uan_no}}" disabled/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id='holidays' class='tabcontent1'>
+  <div class='container-fluid	'>
+        <div class="container mt-5 justify-content-center">
+          <div class="card ">
+              <div class='topnav p-4'>
+                  <div class='row'>
+                      <div class='col-lg-4'>
+                          <labe class='text-center text-light ms-4'>Holidays</labe>
+                      </div>
+                      <div class='col-lg-3'>
+                          <labe class='text-center text-light data'>Date</labe>
+                      </div>
+                      <div class='col-lg-3'>
+                          <labe class='text-center text-light data'>Days</labe>
+                      </div>
+                      <div class='col-lg-2'>
+                          <labe class='text-center text-light data'>Active</labe>
+                      </div>
+                  </div>
+              </div>
+              <!-- </table> -->
+              <div class='p-4'>
+                  {% for i in holidays %}
+                  <div class='row border-bottom' id="{{i.id}}">
+                      <div class='col-lg-4'>
+                          <labe class='text-center ms-4'>{{i.holiday_name}}</labe>
+                      </div>
+                      <div class='col-lg-3'>
+                          <labe class='text-center data'>{{i.holiday_date}}</labe>
+                      </div>
+                      <div class='col-lg-3'>
+                          <labe class='text-center data'>{{i.days}}</labe>
+                      </div>
+                      <div class='col-lg-2'>
+                          <input type="checkbox" class='data' {{i.active}} disabled>
+                      </div>
+                  </div>
+                  {% endfor %}
+              </div>
+          </div>
+    </div>
+  </div>
+</div>
+
+<div id='hr' class='tabcontent1'>
+  <div class='container-fluid	'>
+    <div class='row'>
+      <div class='col-lg-3 '>
+        <div class='align-items-center card-detail d-flex  flex-column min-vh-100'>
+          <div class="card-container">
+            <img class="img-fluid round" src="data:;base64,{{ profile_details.image }}" alt="user" style="height: 100px; width: 100px;"/>
+            <h4 value='{{i.id}}'>{{profile_details.name}}</h4>
+            <div class='row '>
+              <div class='col-lg-5 ps-1'>
+                <label class='form-label label'>Emp Code:</label>
+              </div>
+              <div class='col-lg-5'>
+                <label class='form-label input'>{{profile_details.emp_code}}</label>
+              </div>
+            </div>
+            <div class='row '>
+              <div class='col-lg-5 ps-1'>
+                <label class='form-label label'>Designation:</label>
+              </div>
+              <div class='col-lg-7'>
+                <label class='form-label input'>{{profile_details.designation}}</label>
+              </div>
+            </div>
+            <div class='row '>
+              <div class='col-lg-5 ps-2'>
+                <label class='form-label label'>Reporting to:</label>
+              </div>
+              <div class='col-lg-5'>
+                <label class='form-label input'>{{profile_details.reporting}}</label>
+              </div>
+            </div>
+            <div class='row '>
+              <div class='col-lg-5 ps-2'>
+                <label class='form-label label'>Department:</label>
+              </div>
+              <div class='col-lg-4'>
+                <label class='form-label input'>{{profile_details.dempartment}}</label>
+              </div>
+            </div>
+            <div class='row '>
+              <div class='col-lg-6 ps-2'>
+                <label class='form-label label'>Employee Status:</label>
+              </div>
+              <div class='col-lg-5'>
+                <label class='form-label input'>{{profile_details.status}}</label>
+              </div>
+            </div>
+            <div class='row '>
+              <div class='col-lg-6 ps-2'>
+                <label class='form-label label'>Date of joining</label>
+              </div>
+              <div class='col-lg-5'>
+                <label class='form-label input'>{{profile_details.joining_date}}</label>
+              </div>
+            </div>
+            <div class='row '>
+              <div class='col-lg-6 ps-2'>
+                <label class='form-label label'>Confirmation Date:</label>
+              </div>
+              <div class='col-lg-5'>
+                <label class='form-label input'>{{profile_details.confirmation_date}}</label>
+              </div>
+            </div>
+            <div class='row '>
+              <div class='col-lg-6 ps-1'>
+                <label class='form-label label'>Grade:</label>
+              </div>
+              <div class='col-lg-4'>
+                <label class='form-label input'>{{profile_details.grade}}</label>
+              </div>
+            </div>
+            <div class='row '>
+              <div class='col-lg-6 ps-2'>
+                <label class='form-label label'>Notice Period:</label>
+              </div>
+              <div class='col-lg-4'>
+                <label class='form-label input'>{{profile_details.notice}}</label>
+              </div>
+            </div>
+            <!-- <h6>New York</h6> -->
+            <div class="skills">
+            </div>
+          <!-- </div> -->
+          </div>
+        </div>
+      </div>
+      <div class='col-lg-9'>
+        <div class='container mt-5 justify-content-center'>
+          <div class='card'>
+              <div class='topnav'>
+                  <div class='row'>
+                      <div class='col-lg-9'>
+                          <h4 class='ps-4 p-2 text-light'>HR Settings</h4>
+                      </div>
+                      <div class='col-lg-1'>
+                          <h5 class='ps-4 p-3 text-light ' id='save'><u>Edit</u></h5>
+                          <!-- <input type="submit" class=" p-3 text-light text-light" style="background-color:#021b78 ;" value='save' id='submit' > -->
+                      </div>
+                      <div class='col-lg-2'>
+                          <h5 class='ps-4 p-3 text-light'><u>Save</u></h5>
+                      </div>
+                  </div>
+                  <!-- <h4 class='ps-4 p-2 text-light' >HR Settings</h4> -->
+              </div>
+              <div class='p-5 pt-2'>
+                  <div class="row mt-4 justify-content-center ms-5">
+                      <div class="col-lg-6">
+                          <div class="row">
+                              <div class="col-lg-5">
+                                  <label class="form-label" for="user_id">Related User</label>
+                              </div>
+                              <div class="col-lg-5">
+                                  <input type="text" id="user_id" name="user_id" class="form-control"
+                                      value='{{emp.user_id}}' disabled />
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-6">
+                          <div class="row">
+                              <div class="col-lg-5">
+                                  <label class="form-label" for='employee_billing_status'>Employee Billing
+                                      Status</label>
+                              </div>
+                              <div class="col-lg-5">
+                                  <input type="text" id="employee_billing_status"
+                                      name="employee_billing_status" class="form-control"
+                                      value="{{emp.employee_billing_status}}" disabled />
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row mt-4 justify-content-center ms-5">
+                      <div class="col-lg-6">
+                          <div class="row">
+                              <div class="col-lg-5">
+                                  <label class="form-label" for="address_id">Work Address</label>
+                              </div>
+                              <div class="col-lg-5">
+                                  <input type="text" id="address_id" name="address_id" class="form-control"
+                                      value="{{emp.address_id}}" disabled />
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-6">
+                          <div class="row">
+                              <div class="col-lg-5">
+                                  <label class="form-label" for="po_received">PO Received</label>
+                              </div>
+                              <div class="col-lg-5">
+                                  <input type="text" id="po_received" name="po_received" class="form-control"
+                                      value='{{emp.po_received}}' disabled />
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row mt-4 justify-content-center ms-5">
+                      <div class="col-lg-6">
+                          <div class="row">
+                              <div class="col-lg-5">
+                                  <label class="form-label" for="address_home_ide">Partner</label>
+                              </div>
+                              <div class="col-lg-5">
+                                  <input type="text" id="address_home_id" name="address_home_id"
+                                      class="form-control" value='{{emp.address_home_id}}' disabled />
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-6">
+                          <!-- <div class="row"> 
+                    <div class="col-lg-5"> 
+                    <label class="form-label">PO Received</label> 
+                    </div> 
+                    <div class="col-lg-5"> 
+                    <input type="text" id="emp_code" name="emp_code" class="form-control"/> 
+                    </div> 
+                    </div> -->
+                      </div>
+                  </div>
+                  <div class="row mt-4 justify-content-center ms-5">
+                      <div class="col-lg-6">
+                          <div class="row">
+                              <div class="col-lg-5">
+                                  <label class="form-label" for="barcode">Badge ID</label>
+                              </div>
+                              <div class="col-lg-5">
+                                  <input type="text" id="barcode" name="barcode" class="form-control"
+                                      value='{{emp.barcode}}' disabled />
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-6">
+                          <!-- <div class="row"> 
+                          <div class="col-lg-5"> 
+                          <label class="form-label">PO Received</label> 
+                          </div> 
+                          <div class="col-lg-5"> 
+                          <input type="text" id="emp_code" name="emp_code" class="form-control"/> 
+                          </div> 
+                          </div> -->
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id='safr' class='tabcontent1'>
+  <div class='container-fluid	'>
+    <div class='row'>
+      <div class='col-lg-3 '>
+        <div class='align-items-center card-detail d-flex  flex-column min-vh-100'>
+          <div class="card-container">
+            <img class="img-fluid round" src="data:;base64,{{ profile_details.image }}" alt="user" style="height: 100px; width: 100px;"/>
+            <h4 value='{{i.id}}'>{{profile_details.name}}</h4>
+            <div class='row '>
+              <div class='col-lg-5 ps-1'>
+                <label class='form-label label'>Emp Code:</label>
+              </div>
+              <div class='col-lg-5'>
+                <label class='form-label input'>{{profile_details.emp_code}}</label>
+              </div>
+            </div>
+            <div class='row '>
+              <div class='col-lg-5 ps-1'>
+                <label class='form-label label'>Designation:</label>
+              </div>
+              <div class='col-lg-7'>
+                <label class='form-label input'>{{profile_details.designation}}</label>
+              </div>
+            </div>
+            <div class='row '>
+              <div class='col-lg-5 ps-2'>
+                <label class='form-label label'>Reporting to:</label>
+              </div>
+              <div class='col-lg-5'>
+                <label class='form-label input'>{{profile_details.reporting}}</label>
+              </div>
+            </div>
+            <div class='row '>
+              <div class='col-lg-5 ps-2'>
+                <label class='form-label label'>Department:</label>
+              </div>
+              <div class='col-lg-4'>
+                <label class='form-label input'>{{profile_details.dempartment}}</label>
+              </div>
+            </div>
+            <div class='row '>
+              <div class='col-lg-6 ps-2'>
+                <label class='form-label label'>Employee Status:</label>
+              </div>
+              <div class='col-lg-5'>
+                <label class='form-label input'>{{profile_details.status}}</label>
+              </div>
+            </div>
+            <div class='row '>
+              <div class='col-lg-6 ps-2'>
+                <label class='form-label label'>Date of joining</label>
+              </div>
+              <div class='col-lg-5'>
+                <label class='form-label input'>{{profile_details.joining_date}}</label>
+              </div>
+            </div>
+            <div class='row '>
+              <div class='col-lg-6 ps-2'>
+                <label class='form-label label'>Confirmation Date:</label>
+              </div>
+              <div class='col-lg-5'>
+                <label class='form-label input'>{{profile_details.confirmation_date}}</label>
+              </div>
+            </div>
+            <div class='row '>
+              <div class='col-lg-6 ps-1'>
+                <label class='form-label label'>Grade:</label>
+              </div>
+              <div class='col-lg-4'>
+                <label class='form-label input'>{{profile_details.grade}}</label>
+              </div>
+            </div>
+            <div class='row '>
+              <div class='col-lg-6 ps-2'>
+                <label class='form-label label'>Notice Period:</label>
+              </div>
+              <div class='col-lg-4'>
+                <label class='form-label input'>{{profile_details.notice}}</label>
+              </div>
+            </div>
+            <!-- <h6>New York</h6> -->
+            <div class="skills">
+            </div>
+          <!-- </div> -->
+          </div>
+        </div>
+      </div>
+      <div class='col-lg-9'>
+        <div class='container mt-5 justify-content-center'>
+          <div class='card'>
+              <div class='topnav'>
+                  <div class='row'>
+                      <div class='col-lg-9'>
+                          <h4 class='ps-4 p-2 text-light'>Safr Identity</h4>
+                      </div>
+                      <div class='col-lg-1'>
+                          <h5 class='ps-4 p-3 text-light ' id='save'><u>Edit</u></h5>
+                      </div>
+                      <div class='col-lg-2'>
+                          <h5 class='ps-4 p-3 text-light'><u>Save</u></h5>
+                      </div>
+                  </div>
+              </div>
+              <div class='p-5 pt-2'>
+                  <div class="row mt-4">
+                      <div class="col-lg-5">
+                          <div class="row">
+                              <div class="col-lg-4">
+                                  <label class="form-label" for="person_id">Profile Image <br> SAFR
+                                      PersonID</label>
+                              </div>
+                              <div class="col-lg-8">
+                                  <input type="text" id="person_id" name="person_id" class="form-control"
+                                      value='{{emp.person_id}}' disabled />
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-5">
+                      <!-- <div class="row"> 
+                        <div class="col-lg-5> 
+                        <label class="form-label">Blood Group</label> 
+                        </div> 
+                        <div class="col-lg-5"> 
+                        <input type="text" id="emp_code" name="emp_code" class="form-control"/> 
+                        </div> 
+                        </div> -->
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      </div>
+    </div>
+  </div>   
+
+
+</div>
+
+
+
+
+
+{% block content_js %}
+<script type="text/javascript" src="/static/js/jquery-3.6.0.js"></script>
+<script>
+
+  $('#basicinforedit').click(function(){
+    // alert('working')
+    $('#firstname').removeAttr("disabled");      
+  })
+
+  $('#basicedit_id').click(function(){
+    // alert('working')
+    console.log('working')
+    document.getElementById('savebasicinfo').onclick = null;
+
+    $('#fathername').removeAttr("disabled");
+    $('#blood_group').removeAttr('disabled'); $('#mother_name').removeAttr('disabled');$('#birthday').removeAttr('disabled');
+    $('#spouse_name').removeAttr('disabled');$('#gender').removeAttr('disabled');$('#marital').removeAttr('disabled');
+    $('#physicall_disabled').hide();
+    $('#editphysical').show();
+
+
+
+  })
+  $('#contactedit').click(function(){
+    // alert('working')
+    
+    $('#current_address').removeAttr('disabled');$('#filladdress').removeAttr('disabled');$('#per_address').removeAttr('disabled');
+    $('#personal_email').removeAttr('disabled');$('#personal_mobile').removeAttr('disabled');$('#emergency_contact_name').removeAttr('disabled');
+    $('#emergency_contact_number').removeAttr('disabled');$('#emergency_contact_relation').removeAttr('disabled');
+  })
+  $('#Identificationedit').click(function(){
+    // alert('working')
+      
+    $('#country_id').removeAttr('disabled');$('#state_id').removeAttr('disabled');$('#pan').removeAttr('disabled');
+    $('#aadhar').removeAttr('disabled');
+  })
+  $('#accountdetails').click(function(){
+    // alert('working')
+    $('#bank_id').removeAttr('disabled');$('#other_bank_name').removeAttr('disabled');$('#branch_name').removeAttr('disabled')
+    $('#ifsc_code').removeAttr('disabled')
+  })
+  $('#workinfoedit').click(function(){
+    // alert('Working')
+    $('#company_id').removeAttr('disabled');$('#shift_id').removeAttr('disabled');$('#site_location').removeAttr('disabled');
+    $('#total_experience').removeAttr('disabled');$('#work_email').removeAttr('disabled');$('#highest_qualification').removeAttr('disabled');
+    $('#work_phone').removeAttr('disabled');$('#weekly_off').removeAttr('disabled');$('#mobile_phone').removeAttr('disabled');
+    $('#cost_center_name').removeAttr('disabled');$('#category_id').removeAttr('disabled');
+  })
+  var basiceditform = $('#basiceditform')
+  $('#savebasicinfo').click(function(){
+    // alert('working')
+    basiceditform.submit()
+  })
+  function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent1");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+
+// $(document).ready(function(){
+//   $("#defaultOpen").click();
+// })
+function readURL(input) {
+  if (input.files && input.files[0]) {
+
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('.image-upload-wrap').hide();
+
+      $('.file-upload-image').attr('src', e.target.result);
+      $('.file-upload-content').show();
+
+      $('.image-title').html(input.files[0].name);
+    };
+
+    reader.readAsDataURL(input.files[0]);
+
+  } else {
+    removeUpload();
+  }
+}
+
+</script>
+{% endblock content_js %}
+
+{% endblock content %}
+
+
+
+
+  

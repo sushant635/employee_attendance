@@ -1,0 +1,468 @@
+{% extends "base.html" %}
+{% block title %}My Attendance{% endblock title  %}
+{% load static %}
+{% block content_css %}
+<link href="/static/calendar/main.css" rel="stylesheet" />
+<style>
+body {
+    background-color: #eee;
+    font-family: 'Roboto', sans-serif
+}
+
+.data1 {
+    background-color: #021b78;
+    width: 350px;
+    border-radius: 20px
+}
+
+.heading {
+    font-weight: 700
+}
+
+.hour {
+    margin-top: 1px;
+    color: green;
+    font-size: 12px
+}
+
+.ratings i {
+    color: #021b79;
+}
+
+.btn {
+    border-radius: 15px !important
+}
+
+.line-color {
+    color: green;
+    height: 3px
+}
+.data1 {
+    background-color: #021b78;
+    width: 350px;
+    border-radius: 20px
+}
+
+.heading {
+    font-weight: 700
+}
+
+.hour {
+    margin-top: 1px;
+    color: green;
+    font-size: 12px
+}
+
+.ratings i {
+    color: #021b79;
+}
+
+.btn {
+    border-radius: 15px !important
+}
+
+.line-color {
+    color: green;
+    height: 3px
+}
+.topnav-right {
+  float: right;
+  text-align: right;
+}
+.radio-container span::before,
+.radio-container span::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto
+}
+.form-select{
+  background-color:#f0f2fa !important;
+  border: none !important;
+}
+.bullet{
+    /* background: url(/static/img/clipart524325.png) no-repeat top left; */
+ /* background-position: 0 3px; */
+ /* line-height: 1.5625; */
+ /* padding: 0 0 4px 30px; */
+ /* margin-left: 1em; */
+   
+    display: list-item;                                                  
+    list-style-type: disc;          
+    list-style-position: inside;
+    /* font-size:20px; */
+    /* size:10px; */
+    /* font-size: 1.5rem; */
+}
+.filter{
+  width:200px !important;
+}
+a{
+     color:black !important;
+ }
+.maincard{
+    height: 500px;
+}
+.switch1 {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 24px;
+  
+}
+
+.switch1 input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+  
+}
+
+.slider1 {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #021b79;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider1:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  /* left: 0px; */
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider1 {
+  background-color: #021b79;
+}
+
+input:focus + .slider1 {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider1:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider1.round1 {
+  border-radius: 34px;
+}
+
+.slider1.round1:before {
+  border-radius: 50%;
+}
+</style>
+{% endblock content_css %}
+{% block user_name %}
+{{emp_name.name}}
+{% endblock user_name %}
+{% block search_bar %} 
+<div class='row ms-4 bar'>
+    <!-- <div > -->
+        <!-- <div class='col-lg-3'>
+            <h4 style="color: #171717;">Attendance</h4>
+        </div> -->
+            <div class='col-lg-4 filter'>
+                <select class='form-select' name="location" id="location" >
+                  <option>Location</option>
+                  {% for i in site%}
+                    <option value="{{i.id}}">{{i.name}}</option>
+                  {% endfor %}
+                </select>
+            </div>
+            <div class='col-lg-4 filter'>
+                <select class='form-select' name='department' id='department' >
+                  <option>Department</option>
+                    {% for i in demp %}
+                    <option value='{{i.id}}'>{{i.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-lg-4 filter">
+              <form method='GET' action='/search_attendance' id='memeberform'>
+                <select class='form-select' id="member" name="member">
+                  <option>Employee</option>
+                    {% for i in child_list %}
+                    <option  value='{{i.emp_code}}'>{{i.name}}</option>
+                    {% endfor %}
+                </select>
+              </form>
+            </div>       
+  </div>
+{% endblock search_bar %}
+{% block user_image %}
+<img class="round" src="data:;base64,{{ emp_name.image }}" alt="user" style="height: 40px; width: 40px; border-radius: 50%;"/>
+{% endblock user_image %}
+{% block content %}
+
+<div class='row '>
+    <!-- <div > -->
+        <div class='col-lg-2 ms-5 mt-4'>
+            <h4 style="color: #171717;">Attendance</h4>
+        </div>
+            <!-- <div class='col-lg-2'>
+                <select class='form-select' id="location" style="display:none">
+                    <option>Lotions</option>
+                </select>
+            </div>
+            <div class='col-lg-2'>
+                <select class='form-select' id='department' style="display: none;">
+                    {% for i in demp %}
+                    <option>{{i.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-lg-2">
+                <select class='form-select' id="member" style="display: none;" onchange='member();'>
+                    {% for i in childs %}
+                    <option id='{{i.id}}' value='{{i.emp_code}}'>{{i.name}}</option>
+                    {% endfor %}
+                </select>
+            </div> -->
+    <div class='col-lg-1 mt-4'>
+        <div style="color: #021b79; font-weight: 500;"> Teams Members</div>
+    </div>
+    <div class="col-lg-2 mt-4">
+        <form method='GET' action='/team_attendance' id='teamleaderform'>
+        <label class="switch1">
+            <input type="checkbox" id="myCheck" >
+            <span class="slider1 round1"></span>
+          </label>
+          <label class="form-check-label ms-1" for="team" id='me_id' style=" font-weight: 500; margin-left: 20px !important;">Me</label>
+        </form>
+    </div>
+    <!-- <div class="col-lg-2 mt-4">
+        <form method='GET' action='/team_attendance' id='teamleaderform'>
+        <div class="form-check form-switch">
+            <input class="form-check-input" style="background-color: #021b79;" type="checkbox" id="myCheck" >
+            <label class="form-check-label" for="team">Me</label>
+          </div>
+        </form>
+    </div>        -->
+</div>
+
+<div class="row container-fluid mt-3">
+    <div class="col-lg-9">
+        <div id="calendar" class="card" style="padding: 20px;">
+
+        </div>
+        <!-- <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex praesentium perferendis in laudantium quaerat rerum voluptates omnis, fuga necessitatibus excepturi enim, sapiente illum illo itaque aspernatur eos, totam velit exercitationem?</h1> -->
+    </div>
+    <div class="col-lg-3">
+        <div class="row">
+            <div class="container  d-flex justify-content-center">
+                <div class="card data1 maincard p-4 ">
+                    <div class="second d-flex flex-row mt-2 text-light">
+                        {% for i in image %}
+                        <div class="image mr-3"> <img src="data:;base64,{{i.image}}" class="rounded-circle" width="70" /> </div>      
+                        <div class="">
+                            <div class="mb-1 ms-4">
+                                <div class="row">
+                                    <div class="m-1">
+                                        {{i.name}}
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-lg-8 m-1">
+                                        <label> Emp code:</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        {{i.emp_code}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <hr class="line-color">
+                    <div class="row" style="color: #0575E6;">
+                        <div class="col-lg-6">
+                            {{days}} 
+                        </div>
+                        <div class="col-lg-6">
+                            {{today_atte.attendance_date}}
+                        </div>
+                    </div>
+                    <div class="row text-light mt-1">
+                        <div class="col-lg-6">
+                            <label class="form-label"><img src="/static/img/bullet_blue.png" height='25px'>Shift In:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">{{today_atte.check_in}}</label>
+                        </div>
+                    </div>
+                    <div class="row text-light mt-1">
+                        <div class="col-lg-6">
+                            <label class="form-label"><img src="/static/img/bullet_blue.png" height='25px'>Shift Out:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">{{today_atte.check_out}}</label>
+                        </div>
+                    </div>
+                    <div class="row text-light mt-1">
+                        <div class="col-lg-6">
+                            <label class="form-label"><img src="/static/img/bullet_blue.png" height='25px'>Status :</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">{{today_atte.status}}</label>
+                        </div>
+                    </div>
+                    <div class="row text-light mt-1">
+                        <div class="col-lg-6">
+                            <label class="form-label"><img src="/static/img/bullet_blue.png" height='25px'>Work Hours:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">{{today_atte.worked_hours}}</label>
+                        </div>
+                    </div>
+                    <div class="row text-light mt-1">
+                        <div class="col-lg-6">
+                            <label class="form-label"><img src="/static/img/bullet_blue.png" height='25px'>Shift in Camera:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">{{today_atte.source_id_in}}</label>
+                        </div>
+                    </div>
+                    <div class="row text-light mt-1">
+                        <div class="col-lg-6">
+                            <label class="form-label"><img src="/static/img/bullet_blue.png" height='25px'>Shift Out Camera:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">{{today_atte.source_id_out}}</label>
+                        </div>
+                    </div>
+                    <div class="row text-light mt-1">
+                        <div class="col-lg-6">
+                            <label class="form-label"><img src="/static/img/bullet_blue.png" height='25px'>Data Status:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">{{today_atte.import_status}}</label>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="container mt-5 d-flex justify-content-center">
+                <div class="card data1 p-4 mt-3">
+                    <div class="first">
+                        <h6 class="heading text-light">Attendance Summary</h6>
+                    </div>
+                    <div class="row" style="color: #0575E6;">
+                            <div class="col-lg-5" >
+                                {{firstday}}
+                            </div>to
+                            <div class="col-lg-5">
+                                {{lastday}}
+                            </div>
+                    </div>
+                    <div class="row text-light mt-2">
+                        <div class="col-lg-6">
+                            <label class="form-label"><img src="/static/img/bullet_blue.png" height='25px'>Present:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">{{present}}</label>
+                        </div>
+                    </div>
+                    <div class="row text-light mt-1">
+                        <div class="col-lg-6">
+                            <label class="form-label"><img src="/static/img/bullet_blue.png" height='25px'>Absent:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">{{absent}}</label>
+                        </div>
+                    </div>
+                    <div class="row text-light mt-1">
+                        <div class="col-lg-6">
+                            <label class="form-label"><img src="/static/img/bullet_blue.png" height='25px'>Late In/Early Out:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">{{half_day}}</label>
+                        </div>
+                    </div>
+                    <div class="row text-light mt-1">
+                        <div class="col-lg-6">
+                            <label class="form-label"><img src="/static/img/bullet_blue.png" height='25px'>Leave:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">1</label>
+                        </div>
+                    </div>
+                    <div class="row text-light mt-1">
+                        <div class="col-lg-6">
+                            <label class="form-label"><img src="/static/img/bullet_blue.png" height='25px'>Weekly Off:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label"></label>
+                        </div>
+                    </div>
+                    <div class="row text-light mt-1">
+                        <div class="col-lg-6">
+                            <label class="form-label"><img src="/static/img/bullet_blue.png" height='25px'>Holidays:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        </div>
+    </div>
+</div>
+{% endblock content %}
+{% block content_js %}
+<script src="/static/calendar/main.js"></script> 
+<script>
+
+const memeberform = $('#memeberform');
+    $('#member').click(function(){
+        memeberform.submit();
+    })
+    
+    const teamleaderform = $('#teamleaderform');
+    $('#myCheck').click(function(){
+        teamleaderform.submit();
+    })
+
+
+    document.addEventListener('DOMContentLoaded',function(){
+        var calendarEl = document.getElementById('calendar');
+        var today = new Date();
+
+        var calendar= new FullCalendar.Calendar(calendarEl,{
+            headerToolbar:{
+                left:'prev,',
+                right:'next,',
+                center:'title',
+            },
+            events: [
+                {% for event in attendance %}
+                {
+                    title:'{{event.status}}',
+                    date:'{{event.attendance_date}}',
+                },
+                {% endfor %}
+            ]
+            
+        });
+        calendar.render();
+    })
+</script>
+{% endblock content_js %}

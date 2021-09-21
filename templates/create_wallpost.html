@@ -1,0 +1,15 @@
+
+{% extends "base.html" %}
+{% block content %}
+    
+    <div class='container mt-5'>
+    <form method='post' action='/create_wallpost/'>
+    {{ myform.as_p }}
+    {% csrf_token %} 
+    <input type="submit" class='btn btn-primary' value='submit'/>
+    </form>
+    </div>
+     {% comment %} </div> {% endcomment %}
+    
+    
+{% endblock content %}  

@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}Wall Post{% endblock title  %}
+{% block content_css %}
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Marcellus&display=swap');
+
+html,
+body {
+    height: 100%
+}
+
+* {
+    padding: 0px;
+    margin: 0px
+}
+
+body {
+    background-color: #f0f2fa;
+    margin-top: 120px;
+    /* display: grid; */
+    place-items: center
+}
+
+.card {
+    background-color: #ffffff;
+    border-radius: 20px;
+    color: #6f707d;
+    font-family: 'Roboto';
+}
+
+#heading {
+    font-size: 55px;
+    color: #2b304d
+}
+
+.temp {
+    place-items: center
+}
+
+.temp-details>p>span,
+.grey {
+    color: #a3acc1;
+    font-size: 12px
+}
+
+.fa {
+    color: #a5a5b1
+}
+.data{
+  width: 800px;
+}
+
+*:focus {
+    outline: none
+} 
+.container-fluid{
+  margin-top: 0px !important;
+  top: 0 !important;
+}
+</style>
+
+{% endblock content_css %}
+{% block user_name %}
+{{emp_name.name}}
+{% endblock user_name %}
+{% block user_image %}
+<img class="round" src="data:;base64,{{ emp_name.image }}" alt="user" style="height: 40px; width: 40px; border-radius: 50%;"/>
+{% endblock user_image %}
+{% block content %}
+
+{% for i in wall %}
+<div class="container-fluid ">
+  <div class="row justify-content-center  mt-5">
+    <div class="col-12 col-md-4 col-sm-12 col-xs-12 data">
+      <div class="card p-4 border border-info border-2">
+        <div class="d-flex">
+          <h6 class="flex-grow-1"><i class="fas fa-user-circle"></i> {{i.create_name}}</h6>
+         <h6>{{i.create_date}} </h6>  
+       </div>
+        <div class="d-flex flex-column temp mt-5 mb-3">
+          <!-- <h1 class="mb-0 font-weight-bold" id="heading"></h1> {{i.name}} </h1> -->
+            {{i.name}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
+ 
+{% endfor %}
+{% endblock content %}
+

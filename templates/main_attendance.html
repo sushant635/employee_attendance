@@ -1,0 +1,265 @@
+{% extends "base.html" %}
+{% block title %}My Attendance{% endblock title  %}
+{% load static %}
+{% block content_css %}
+<link href="/static/calendar/main.css" rel="stylesheet" />
+<style>
+body {
+    background-color: #eee;
+    font-family: 'Roboto', sans-serif
+}
+
+.data1 {
+    background-color: #021b78;
+    width: 350px;
+    border-radius: 20px
+}
+
+.heading {
+    font-weight: 700
+}
+
+.hour {
+    margin-top: 1px;
+    color: green;
+    font-size: 12px
+}
+
+.ratings i {
+    color: #021b79;
+}
+
+.btn {
+    border-radius: 15px !important
+}
+
+.line-color {
+    color: green;
+    height: 3px
+}
+.bullet{
+    /* display: list-item;                                                  
+    list-style-type: disc;          
+    list-style-position: inside; */
+    /* font-size:20px; */
+    /* size:10px; */
+    /* font-size: 1.5rem; */
+    content: "•";
+    font-size: 170%;
+    padding-right: 5px;
+}
+ a{
+     color:black !important;
+ }
+ .maincard{
+    height: 500px;
+}
+
+</style>
+{% endblock content_css %}
+{% block user_name %}
+{{emp_name.name}}
+{% endblock user_name %}
+{% block user_image %}
+<img class="round" src="data:;base64,{{ emp_name.image }}" alt="user" style="height: 40px; width: 40px; border-radius: 50%;"/>
+{% endblock user_image %}
+{% block content %}
+<div class="row container-fluid ">
+    <div class="col-lg-9 mt-5">
+        <div id="calendar" class="card " style="padding: 20px;">
+
+        </div>
+        <!-- <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex praesentium perferendis in laudantium quaerat rerum voluptates omnis, fuga necessitatibus excepturi enim, sapiente illum illo itaque aspernatur eos, totam velit exercitationem?</h1> -->
+    </div>
+    <div class="col-lg-3">
+        <div class="row">
+            <div class="container mt-5 d-flex justify-content-center">
+                <div class="card data1 maincard p-4 ">
+                    <div class="second d-flex flex-row mt-2 text-light">
+                        {% for i in image %}
+                        <div class="image mr-3"> <img src="data:;base64,{{i.image}}" class="rounded-circle" width="70" /> </div>      
+                        <div class="">
+                            <div class="ms-3">
+                                <div class="row">
+                                    <div class="m-1">
+                                        {{i.name}}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-8 m-1">
+                                        <label> Emp code:</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        {{i.emp_code}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <hr class="line-color">
+                    <div class="row" style="color: #0575E6;">
+                        <div class="col-lg-6">
+                            {{days}} 
+                        </div>
+                        <div class="col-lg-6">
+                            {{today_atte.attendance_date}}
+                        </div>
+                    </div>
+                    <div class="row text-light mt-1">
+                        <div class="col-lg-6">
+                            <label class="form-label"><img src="/static/img/bullet_blue.png" height='25px'>Shift In:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">{{today_atte.check_in}}</label>
+                        </div>
+                    </div>
+                    <div class="row text-light mt-1">
+                        <div class="col-lg-6">
+                            <label class="form-label"><img src="/static/img/bullet_blue.png" height='25px'>Shift Out:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">{{today_atte.check_out}}</label>
+                        </div>
+                    </div>
+                    <div class="row text-light mt-1">
+                        <div class="col-lg-6">
+                            <label class="form-label"><img src="/static/img/bullet_blue.png" height='25px'>Status :</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">{{today_atte.status}}</label>
+                        </div>
+                    </div>
+                    <div class="row text-light mt-1">
+                        <div class="col-lg-6">
+                            <label class="form-label"><img src="/static/img/bullet_blue.png" height='25px'>Work Hours:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">{{today_atte.worked_hours}}</label>
+                        </div>
+                    </div>
+                    <div class="row text-light mt-1">
+                        <div class="col-lg-6">
+                            <label class="form-label"><img src="/static/img/bullet_blue.png" height='25px'>Shift in Camera:</label>
+                        </div>
+                        <div class="col-lg-5">
+                            <label class="form-label">{{today_atte.source_id_in}}</label>
+                        </div>
+                    </div>
+                    <div class="row text-light mt-1">
+                        <div class="col-lg-6">
+                            <label class="form-label"><img src="/static/img/bullet_blue.png" height='25px'>Shift Out Camera:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">{{today_atte.source_id_out}}</label>
+                        </div>
+                    </div>
+                    <div class="row text-light mt-1">
+                        <div class="col-lg-6">
+                            <label class="form-label"><img src="/static/img/bullet_blue.png" height='25px'>Data Status:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">{{today_atte.import_status}}</label>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="container mt-5 d-flex justify-content-center">
+                <div class="card data1 p-4 mt-3">
+                    <div class="first">
+                        <h6 class="heading text-light">Attendance Summary</h6>
+                    </div>
+                    <div class="row" style="color: #0575E6;">
+                            <div class="col-lg-5" >
+                                {{firstday}}
+                            </div>to
+                            <div class="col-lg-5">
+                                {{lastday}}
+                            </div>
+                    </div>
+                    <div class="row text-light mt-1">
+                        <div class="col-lg-6">
+                            <label class="form-label"><img src="/static/img/bullet_blue.png" height='25px'>Present:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">{{present}}</label>
+                        </div>
+                    </div>
+                    <div class="row text-light mt-1">
+                        <div class="col-lg-6">
+                            <label class="form-label"><img src="/static/img/bullet_blue.png" height='25px'>Absent:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">{{absent}}</label>
+                        </div>
+                    </div>
+                    <div class="row text-light mt-1">
+                        <div class="col-lg-6">
+                            <label class="form-label"><img src="/static/img/bullet_blue.png" height='25px'>Late In/Early Out:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">{{half_day}}</label>
+                        </div>
+                    </div>
+                    <div class="row text-light mt-1">
+                        <div class="col-lg-6">
+                            <label class="form-label"><img src="/static/img/bullet_blue.png" height='25px'>Leave:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">1</label>
+                        </div>
+                    </div>
+                    <div class="row text-light mt-1">
+                        <div class="col-lg-6">
+                            <label class="form-label"><img src="/static/img/bullet_blue.png" height='25px'>Weekly Off:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label"></label>
+                        </div>
+                    </div>
+                    <div class="row text-light mt-1">
+                        <div class="col-lg-6">
+                            <label class="form-label"><img src="/static/img/bullet_blue.png" height='25px'>Holidays:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="form-label"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        </div>
+    </div>
+</div>
+{% endblock content %}
+{% block content_js %}
+<script src="/static/calendar/main.js"></script> 
+<script>
+    document.addEventListener('DOMContentLoaded',function(){
+        var calendarEl = document.getElementById('calendar');
+        var today = new Date();
+
+        var calendar= new FullCalendar.Calendar(calendarEl,{
+            headerToolbar:{
+                left:'prev,',
+                right:'next,',
+                center:'title',
+            },
+            events: [
+                {% for event in attendance %}
+                {
+                    title:'{{event.status}}',
+                    date:'{{event.attendance_date}}',
+                },
+                {% endfor %}
+            ]
+            
+        });
+        calendar.render();
+    })
+</script>
+{% endblock content_js %}

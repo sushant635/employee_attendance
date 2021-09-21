@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="bg-light p-5 rounded-lg m-3 ">
+        <form method='post' action='/create_attendance_csv/'>
+            <div class='row'>
+            {% csrf_token %} 
+                <div class='col-lg-4'>
+                <label class='from-label'>
+                    CSV Floder for local
+                </label>
+                </div>
+                <div class='col-lg-3'>
+                    <input type='text' class='form-control' name='path' required>
+                </div>
+            <div>
+            <div class='row mt-2'>
+                <div class='col-lg-4'>
+                <label class='from-label'>
+                    Since Date
+                </label>
+                </div>
+                <div class='col-lg-3'>
+                    <input type='date' class='form-control' name='sincedate' required>
+                </div>
+            <div>
+
+            <div class='row mt-4'>
+                <div class='col-lg-4'>
+                    <input type='submit' class='btn btn-success ' value='Run Manually'/>
+                </div>
+                
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}

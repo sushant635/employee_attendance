@@ -1,0 +1,253 @@
+{% load static %}
+{% load auth_extras %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- <link type='text/css' rel='stylesheet' href='//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css'> -->
+    <link type='text/css' href='/static/css/menu.css' rel='stylesheet'>
+    <title>{% block title %}{% endblock title  %}</title>
+    <script src="https://kit.fontawesome.com/8a714c7daf.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap" rel="stylesheet">
+    <style>
+      body{
+     font-family: 'Roboto', sans-serif;
+     background-color:#f0f2fa;
+    }
+      .l-navbar{
+        /* background-color: red; */
+        /* background-image: linear-gradient(#68A000, #3E5622); */
+        /* border-image: linear-gradient(to bottom,  #68A000 0%, #68A000 48%, #3E5622 100%); */
+        /* background: linear-gradient(45deg,#021b79  0 50%,  #0575e6 50% 100%); */
+        /* background: linear-gradient(80deg,#021b79, #0575e6 ); */
+        /* radial-gradient(#EA52F8 5.66%, #0066FF 94.35%); */
+        /* background-image: radial-gradient(#0575e6 50%, #021b79 50%); */
+        background-image: linear-gradient(#0575e6 , #021b79 );
+
+
+
+
+
+
+
+      }
+      /* .top-contact-menu {
+      
+        width: 100%;
+        padding: 5px 0px;
+        height: var(--header-height);
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        padding: 0 1rem;
+        background-color: var(--white-color);
+        z-index: var(--z-fixed);
+        transition: .5s
+      } */
+      /* .show {
+        width: calc(var(--nav-width) + 40px) !important;
+      }
+      .body-pd {
+      padding-left: calc(var(--nav-width) + 50px) !important;
+      } 
+      #body-pd{
+        background:#f0f2fa;
+      }*/
+      /* .header{
+        justify-content: normal !important;
+      } */
+      /* .header_img{ */
+        /* text-align:left !important; */
+        /* float: right; */
+        /* list-style: none; */
+        /* float: right; */
+        /* padding-right: 20px; */
+        /* vertical-align: top; */
+        /* justify-content:end !important; */
+
+ 
+      /* } */
+    .header{
+      background-color: white !important;
+    }
+    .header > div {
+      margin-bottom: 0%;
+      margin-top: 0%;
+    }
+    .Notification{
+      width:60px !important;
+      margin-left: 22px !important;
+
+    }
+    .image{
+      width: 60px !important; 
+      border-radius: 50% !important;
+      /* margin-left: 20px !important; */
+
+    }
+    .subnav:hover .subnav-content {
+      /* display: block;
+       */
+       background:black ;
+    }
+    .subnav-content {
+  display: none;
+  /* position: absolute; */
+  /* left: 0; */
+  /* background-color: red; */
+  /* width: 100%; */
+  /* z-index: 1; */
+}
+      </style>
+    {% block content_css %}
+      
+    {% endblock content_css %}
+
+</head>
+<body  id="body-pd">
+    
+    
+  
+<header class="header" id="header">
+  <div class='row mt-3'>
+    <div class='col-lg-3'>
+      <h3 style="color:#021b79">Hello{% block user_name%} {% endblock user_name%},</h3>
+    </div>
+    <div class=' col-lg-8'>
+      {% block search_bar %} {% endblock search_bar %}
+    </div>
+      <div class='col-lg-1 '>
+        <div class='row'>
+          <div class='col-lg-6 Notification'>
+            <img src="/static/img/nav icons/Notification.png" height='40px'>
+          </div>
+          <div class='col-lg-4 image' >
+            <!-- <i class="fas fa-user"></i> -->{% block user_image %} {% endblock user_image %} 
+          </div>
+        </div>
+      </div>
+  </div>
+</header>
+{% url 'wallpost' as wallpost %}
+{% url 'hr_attendance' as hr_attendance %}
+{% url 'employee_profiel' as employee_profiel %}
+{% url 'create_employee_profile' as create_employee_profile %}
+{% url 'team_employee_profile' as team_employee_profile %}
+{% url 'team_attendance' as team_attendance %}
+{% url 'master_page' as master_page%}
+{% url 'attendance' as attendance%}
+{% url 'user_profile' as user_profile%}
+
+<div class="l-navbar" id="nav-bar">
+  <nav class="nav">
+      <div> <a href="#" class="nav_logo"> <span class="nav_logo-name">QuikHR</span> </a>
+        <div class="header_toggle nav_link" style="margin-left:  10px !important; "> <img src="/static/img/nav icons/next (3) 1.png" height="20px" id="header-toggle" ></div>
+          <div class="nav_list"> 
+            {% if request.user|has_group:"employee" %}
+            <a href="{% url 'wallpost' %}" class="nav_link {% if request.path == wallpost %}active{% endif %}"> <img src="/static/img/nav icons/wall post.png" height="25px"><span class="nav_name"></span> </a> 
+            <a href="{% url 'attendance' %}" class="nav_link {% if request.path == attendance %}active{% endif %}"><img src='/static/img/nav icons/leave.png' height="25px"><span class="nav_name"></span> </a>
+            <a href="{% url 'user_profile' %}" class="nav_link {% if request.path == user_profile %}active{% endif %}"><img src="/static/img/nav icons/user (2) 2.png"  height="25px"><span class="nav_name"></span> </a> 
+            <a href="{% url 'logout' %}" class="nav_link"><img src="/static/img/nav icons/exit process.png"  height="25px"><span class="nav_name"></span> </a>
+            {% endif %} 
+            
+
+            {% if request.user|has_group:"team_leader" %}
+            <a href="{% url 'wallpost' %}" class="nav_link {% if request.path == wallpost %}active{% endif %}"> <img class='images' src="/static/img/nav icons/wall post.png" height="25px"><span class="nav_name"></span> </a> 
+            <!-- <a href="{% url 'attendance' %}" class="nav_link"><i class="fas fa-user-clock"></i><span class="nav_name">Attendance</span> </a> -->
+            <a href="{% url 'team_attendance' %}" class="nav_link {% if request.path == team_attendance %}active{% endif %}"><img src='/static/img/nav icons/leave.png' height="25px"><span class="nav_name"></span> </a>
+            <a href="{% url 'team_employee_profile' %}" class="nav_link {% if request.path == team_employee_profile %}active{% endif %}"><img src="/static/img/nav icons/create employee.png"  height="25px"><span class="nav_name"></span> </a> 
+            <a href="{% url 'logout' %}" class="nav_link"><img src="/static/img/nav icons/exit process.png"  height="25px"><span class="nav_name"></span> </a>
+            {% endif %}
+            {% if request.user|has_group:"admin"%}
+           
+            <a  href="{% url 'wallpost' %}" class="nav_link {% if request.path == wallpost %}active{% endif %}"> <img src="/static/img/nav icons/wall post.png" height="22px" ><span class="nav_name">WallPost</span> </a> 
+            <a href="{% url 'hr_attendance' %}" class="nav_link  {% if request.path == hr_attendance %}active{% endif %}"><img src='/static/img/nav icons/leave.png' height="22px"><span class="nav_name">Teams Attendance</span> </a>
+            <!-- <a class="nav_link subnav"><img src="/static/img/nav icons/user (2) 2.png"  height="20px" style="opacity: 0.5 !important;"><span class="nav_name">Employee</span> </a>  -->
+            <!-- <div class="subnav-content"> -->
+              <a href="{% url 'employee_profiel' %}" class="nav_link {% if request.path == master_page %}active{% endif %}"><img src="/static/img/nav icons/employee profile view HR.png" height="22px" style="opacity:0.5!important"><span class="nav_name">Employee</span> </a> 
+              <a href="{% url 'create_employee_profile' %}" class="nav_link {% if request.path == create_employee_profile %}active{% endif %}"><img src="/static/img/nav icons/create employee.png" height="22px" ><span class="nav_name">Create Employee</span> </a> 
+            <!-- </div> -->
+            <a href="{% url 'master_page' %}" class="nav_link  {% if request.path == master_page %}active{% endif %}"><img src="/static/img/nav icons/Masters.png" height="22px" style="opacity:0.5!important"> <span class="nav_name">Master Page</span> </a> 
+            <!-- <a href="{% url 'create_attendance_csv' %}" class="nav_link"><i class="fas fa-file-csv"></i> <span class="nav_name">Create Attendance Csv</span> </a> </div> -->
+            <a href="{% url 'logout' %}" class="nav_link"><img src="/static/img/nav icons/exit process.png" height="22px"><span class="nav_name">Logout</span> </a>
+            {% endif %}
+            
+      </div>
+  </nav>
+</div>
+     
+    <div class="">
+  
+      {% block content %}
+      
+      {% endblock content %}
+      
+      
+    </div>
+      
+
+
+     <script src="/static/bootstrap/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="/static/bootstrap/js/popper.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script src="/static/js/jquery-3.6.0.js" ></script>
+        <!-- <script type="text/javascript" src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script> -->
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+
+    <script>
+		
+    document.addEventListener("DOMContentLoaded", function(event) {
+
+const showNavbar = (toggleId, navId, bodyId, headerId) =>{
+const toggle = document.getElementById(toggleId),
+nav = document.getElementById(navId),
+bodypd = document.getElementById(bodyId),
+headerpd = document.getElementById(headerId)
+
+// Validate that all variables exist
+if(toggle && nav && bodypd && headerpd){
+toggle.addEventListener('click', ()=>{
+// show navbar
+nav.classList.toggle('show1')
+// change icon
+toggle.classList.toggle('bx-x')
+// add padding to body
+bodypd.classList.toggle('body-pd')
+// add padding to header
+headerpd.classList.toggle('body-pd')
+})
+}
+}
+
+showNavbar('header-toggle','nav-bar','body-pd','header')
+
+/*===== LINK ACTIVE =====*/
+const linkColor = document.querySelectorAll('.nav_link')
+
+function colorLink(){
+if(linkColor){
+linkColor.forEach(l=> l.classList.remove('active'))
+this.classList.add('active')
+}
+}
+linkColor.forEach(l=> l.addEventListener('click', colorLink))
+
+// Your code to run since DOM is loaded and ready
+});
+	</script>
+    {% block content_js %}
+      
+      {% endblock content_js %}
+</body>
+</html>
